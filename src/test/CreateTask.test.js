@@ -1,0 +1,493 @@
+import React from 'react';
+import '@testing-library/jest-dom';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import TaskForm from '../components/Navbar/CreateForm'; // Adjust the import path as needed
+import { formatSingleDateObject } from '../utils/helpers';
+
+const mockAddTask = jest.fn();
+
+jest.mock('../contexts/TaskContext', () => ({
+  useTaskContext: () => ({
+    addTask: mockAddTask,
+  }),
+}));
+
+const renderComponent = (props = {}) => {
+  return render(<TaskForm setVisibleSection={jest.fn()} />);
+};
+
+describe('TaskForm Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('Form Rendering', () => {
+    it('renders all form elements correctly', () => {
+      renderComponent();
+
+      // Check for key form labels
+      expect(screen.getByLabelText(/Task Name/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Priority/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Due Date/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Description/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/Add Subtask/i)).toBeInTheDocument();
+
+      // Check for buttons
+      expect(screen.getByText(/Create/i)).toBeInTheDocument();
+      expect(screen.getByText(/Cancel/i)).toBeInTheDocument();
+    });
+  });
+
+  describe('Input Changes', () => {
+    it('updates task name input correctly', () => {
+      renderComponent();
+
+      const nameInput = screen.getByPlaceholderText("What's on your mind");
+      fireEvent.change(nameInput, { target: { value: 'New Task' } });
+
+      expect(nameInput.value).toBe('New Task');
+    });
+
+    it('updates description input correctly', () => {
+      renderComponent();
+
+      const descInput = screen.getByPlaceholderText('Add a description');
+      fireEvent.change(descInput, { target: { value: 'Task description' } });
+
+      expect(descInput.value).toBe('Task description');
+    });
+
+    it('updates priority dropdown correctly', () => {
+      renderComponent();
+
+      // Open dropdown and select an option
+      const priorityDropdown = screen.getByLabelText(/Priority/i);
+      fireEvent.click(priorityDropdown);
+
+      const mediumOption = screen.getByText('Medium');
+      fireEvent.click(mediumOption);
+
+      // Verify the selected option (this might need adjustment based on your dropdown implementation)
+      expect(screen.getByText('Medium')).toBeInTheDocument();
+    });
+
+    it('onBlur closes priority dropdown', async () => {
+      renderComponent();
+      const priorityDropdown = screen.getByLabelText(/Priority/i);
+      fireEvent.click(priorityDropdown);
+
+      fireEvent.blur(priorityDropdown);
+      await waitFor(() => {
+        expect(screen.queryByText('Medium')).not.toBeInTheDocument();
+      });
+    });
+
+    it('updates due date today correctly', async () => {
+      renderComponent();
+
+      const dateInput = screen.getByLabelText(/due date/i);
+      fireEvent.click(dateInput);
+
+      const today = new Date();
+
+      const todayString = today.toDateString();
+
+      // Wait for the element with the matching aria-label to appear
+      const dateOption = await screen.findByLabelText(todayString);
+
+      fireEvent.click(dateOption);
+
+      const setDateButton = screen.getByText('Set');
+      fireEvent.click(setDateButton);
+
+      expect(
+        screen.getByText(`${formatSingleDateObject(today)}`)
+      ).toBeInTheDocument();
+    });
+
+    it('onBlur closes date dropdown', async () => {
+      renderComponent();
+
+      const dateInput = screen.getByLabelText(/due date/i);
+      fireEvent.click(dateInput);
+      const today = new Date();
+      const todayString = today.toDateString();
+      // Wait for the element with the matching aria-label to appear
+      await screen.findByLabelText(todayString);
+      fireEvent.blur(dateInput);
+
+      expect(
+        screen.queryByText(`${formatSingleDateObject(today)}`)
+      ).not.toBeInTheDocument();
+    });
+
+    it('adds subtask correctly', () => {
+      renderComponent();
+
+      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      fireEvent.click(addSubtask);
+
+      expect(
+        document.querySelector(`[aria-label="subtask item 1"]`)
+      ).toBeInTheDocument();
+    });
+
+    it('subtask checked correctly', async () => {
+      renderComponent();
+
+      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+
+      await waitFor(() => {
+        fireEvent.click(addSubtask);
+      });
+
+      const subtaskInputCheckbox1 = await screen.findByLabelText(
+        `subtask 1 input checkbox`
+      );
+
+      await waitFor(() => {
+        fireEvent.click(subtaskInputCheckbox1);
+      });
+
+      expect(subtaskInputCheckbox1).toBeChecked();
+    });
+
+    it('subtask unchecked correctly', async () => {
+      renderComponent();
+
+      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+
+      await waitFor(() => {
+        fireEvent.click(addSubtask);
+      });
+
+      const subtaskInputCheckbox1 = await screen.findByLabelText(
+        `subtask 1 input checkbox`
+      );
+
+      await waitFor(() => {
+        fireEvent.click(subtaskInputCheckbox1);
+      });
+
+      await waitFor(() => {
+        fireEvent.click(subtaskInputCheckbox1);
+      });
+
+      expect(subtaskInputCheckbox1).not.toBeChecked();
+    });
+
+    it('subtask writes correctly', async () => {
+      renderComponent();
+
+      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+
+      await waitFor(() => {
+        fireEvent.click(addSubtask);
+      });
+
+      const subtaskInput1 = await screen.findByLabelText(`subtask 1 input`);
+
+      await waitFor(() => {
+        fireEvent.change(subtaskInput1, {
+          target: { value: 'test' },
+        });
+      });
+
+      const inputValue = subtaskInput1.value;
+
+      expect(inputValue).toBe('test');
+    });
+
+    it('subtask deletes correctly', async () => {
+      renderComponent();
+
+      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+
+      await waitFor(() => {
+        fireEvent.click(addSubtask);
+      });
+
+      const subtasDeleteButton1 = await screen.findByLabelText(
+        `subtask 1 delete button`
+      );
+
+      await waitFor(() => {
+        fireEvent.click(subtasDeleteButton1);
+      });
+
+      expect(
+        document.querySelector(`[aria-label="subtask item 1"]`)
+      ).not.toBeInTheDocument();
+    });
+
+    it('clear error when change is triggered', async () => {
+      mockAddTask.mockRejectedValueOnce(new Error('Failed to create task'));
+      renderComponent();
+
+      const submitButton = screen.getByText(/Create/i);
+      await waitFor(() => {
+        fireEvent.click(submitButton);
+      });
+
+      await waitFor(() => {
+        screen.getByText('Failed to create task please try again');
+      });
+
+      const nameInput = screen.getByPlaceholderText("What's on your mind");
+      fireEvent.change(nameInput, { target: { value: 'New Task' } });
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Failed to create task please try again')
+        ).not.toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('Form Success', () => {
+    it('submits form with correct data', async () => {
+      renderComponent();
+
+      const nameInput = screen.getByPlaceholderText("What's on your mind");
+      fireEvent.change(nameInput, { target: { value: 'New Task' } });
+
+      const descInput = screen.getByPlaceholderText('Add a description');
+      fireEvent.change(descInput, { target: { value: 'Task description' } });
+
+      const priorityDropdown = screen.getByLabelText(/Priority/i);
+      fireEvent.click(priorityDropdown);
+
+      const mediumOption = screen.getByText('Medium');
+      fireEvent.click(mediumOption);
+
+      const dateInput = screen.getByLabelText(/due date/i);
+      fireEvent.click(dateInput);
+
+      const today = new Date();
+
+      const todayString = today.toDateString();
+
+      // Wait for the element with the matching aria-label to appear
+      const dateOption = await screen.findByLabelText(todayString);
+
+      fireEvent.click(dateOption);
+
+      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      fireEvent.click(addSubtask);
+
+      const setDateButton = screen.getByText('Set');
+      fireEvent.click(setDateButton);
+
+      const submitButton = screen.getByText(/Create/i);
+      fireEvent.click(submitButton);
+
+      expect(mockAddTask).toHaveBeenCalledWith({
+        name: 'New Task',
+        description: 'Task description',
+        date: today.toLocaleDateString(),
+        completed: false,
+        overdue: false,
+        priority: 'Medium',
+        subtasks: [
+          expect.objectContaining({
+            id: expect.stringMatching(
+              /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
+            ),
+            text: '',
+            checked: false,
+          }),
+        ],
+      });
+
+      await waitFor(() => {
+        expect(nameInput.value).toBe('');
+        expect(descInput.value).toBe('');
+        expect(screen.getByText(/none/i)).toBeInTheDocument();
+        expect(screen.getByText('Select a date')).toBeInTheDocument();
+        expect(
+          document.querySelector(`[aria-label="subtask item 1"]`)
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it('submits form with correct overdue data', async () => {
+      renderComponent();
+
+      const nameInput = screen.getByPlaceholderText("What's on your mind");
+      fireEvent.change(nameInput, { target: { value: 'New Task' } });
+
+      const descInput = screen.getByPlaceholderText('Add a description');
+      fireEvent.change(descInput, { target: { value: 'Task description' } });
+
+      const priorityDropdown = screen.getByLabelText(/Priority/i);
+      fireEvent.click(priorityDropdown);
+
+      const mediumOption = screen.getByText('Medium');
+      fireEvent.click(mediumOption);
+
+      const dateInput = screen.getByLabelText(/due date/i);
+      fireEvent.click(dateInput);
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      const yesterdayString = yesterday.toDateString();
+
+      // Wait for the element with the matching aria-label to appear
+      const dateOption = await screen.findByLabelText(yesterdayString);
+
+      fireEvent.click(dateOption);
+
+      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      fireEvent.click(addSubtask);
+
+      const setDateButton = screen.getByText('Set');
+      fireEvent.click(setDateButton);
+
+      const submitButton = screen.getByText(/Create/i);
+      fireEvent.click(submitButton);
+
+      expect(mockAddTask).toHaveBeenCalledWith({
+        name: 'New Task',
+        description: 'Task description',
+        date: yesterday.toLocaleDateString(),
+        completed: false,
+        overdue: true,
+        priority: 'Medium',
+        subtasks: [
+          expect.objectContaining({
+            id: expect.stringMatching(
+              /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
+            ),
+            text: '',
+            checked: false,
+          }),
+        ],
+      });
+
+      await waitFor(() => {
+        expect(nameInput.value).toBe('');
+        expect(descInput.value).toBe('');
+        expect(screen.getByText(/none/i)).toBeInTheDocument();
+        expect(screen.getByText('Select a date')).toBeInTheDocument();
+        expect(
+          document.querySelector(`[aria-label="subtask item 1"]`)
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it('clear error with successfull submit', async () => {
+      mockAddTask.mockRejectedValueOnce(new Error('Failed to create task'));
+      renderComponent();
+
+      const submitButton = screen.getByText(/Create/i);
+      await waitFor(() => {
+        fireEvent.click(submitButton);
+      });
+
+      await waitFor(() => {
+        screen.getByText('Failed to create task please try again');
+      });
+
+      await waitFor(() => {
+        fireEvent.click(submitButton);
+      });
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Failed to create task please try again')
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it('submits form with correct data', async () => {
+      mockAddTask.mockRejectedValueOnce(new Error('Failed to create task'));
+      renderComponent();
+      const submitButton = screen.getByText(/Create/i);
+
+      await waitFor(() => {
+        fireEvent.click(submitButton);
+      });
+
+      await waitFor(() => {
+        expect(
+          screen.getByText('Failed to create task please try again')
+        ).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('Form Submission Cancel', () => {
+    it('clear fields when canceling', async () => {
+      renderComponent();
+      const nameInput = screen.getByPlaceholderText("What's on your mind");
+      fireEvent.change(nameInput, { target: { value: 'New Task' } });
+
+      const descInput = screen.getByPlaceholderText('Add a description');
+      fireEvent.change(descInput, { target: { value: 'Task description' } });
+
+      const priorityDropdown = screen.getByLabelText(/Priority/i);
+      fireEvent.click(priorityDropdown);
+
+      const mediumOption = screen.getByText('Medium');
+      fireEvent.click(mediumOption);
+
+      const dateInput = screen.getByLabelText(/due date/i);
+      fireEvent.click(dateInput);
+
+      const today = new Date();
+
+      const todayString = today.toDateString();
+
+      // Wait for the element with the matching aria-label to appear
+      const dateOption = await screen.findByLabelText(todayString);
+
+      fireEvent.click(dateOption);
+
+      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      fireEvent.click(addSubtask);
+
+      const setDateButton = screen.getByText('Set');
+      fireEvent.click(setDateButton);
+
+      const cancelButton = screen.getByText(/Cancel/i);
+      fireEvent.click(cancelButton);
+
+      await waitFor(() => {
+        expect(nameInput.value).toBe('');
+        expect(descInput.value).toBe('');
+        expect(screen.getByText(/none/i)).toBeInTheDocument();
+        expect(screen.getByText('Select a date')).toBeInTheDocument();
+        expect(
+          document.querySelector(`[aria-label="subtask item 1"]`)
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it('clear error when canceling', async () => {
+      mockAddTask.mockRejectedValueOnce(new Error('Failed to create task'));
+      renderComponent();
+
+      const submitButton = screen.getByText(/Create/i);
+
+      await waitFor(() => {
+        fireEvent.click(submitButton);
+      });
+
+      await waitFor(() => {
+        screen.getByText('Failed to create task please try again');
+      });
+
+      await waitFor(() => {
+        const cancelButton = screen.getByText(/Cancel/i);
+        fireEvent.click(cancelButton);
+      });
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Failed to create task please try again')
+        ).not.toBeInTheDocument();
+      });
+    });
+  });
+});

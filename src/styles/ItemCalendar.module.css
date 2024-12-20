@@ -1,0 +1,299 @@
+.container {
+  width: 100%;
+  position: relative;
+}
+
+.dropdownOption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  /* background-color: #f9f9f9; */
+  border: 2px solid var(--secondary-color);
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dropdownFieldText {
+  font-size: 16px;
+  font-weight: normal;
+  color: var(--text-color);
+  font-family: var(--text-font-family);
+}
+
+.calendarIcon {
+  font-size: 16px;
+  color: var(--primary-color);
+  margin-top: 2px;
+}
+
+.dateRangePicker {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  background: whitesmoke;
+  border-radius: 8px;
+  position: absolute;
+  margin-top: 8px;
+  z-index: 5;
+  margin-bottom: 5rem;
+  font-family: var(--text-font-family);
+  color: var(--text-color);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0; /* Remove gaps between cells */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  gap: 1rem;
+}
+
+.arrowButton {
+  border: none;
+  background-color: transparent;
+}
+
+.arrowIcon {
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.optionButton {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+}
+
+.day {
+  width: 100%; /* Full-width to fill grid cell */
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  border-radius: 0; /* Reset border-radius for a seamless background */
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+.nested-day-middle {
+  width: 2rem; /* Full-width to fill grid cell */
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  border-radius: 100rem;
+  position: absolute;
+}
+
+.adjacent-month {
+  color: #aaa;
+}
+
+.select-bg {
+  background-color: var(--primary-color);
+}
+
+.range-bg {
+  background-color: #4aa7ff;
+}
+
+.select-text {
+  color: #fff;
+}
+
+.today-border {
+  border: 2px solid var(--primary-color); /* Blue border */
+}
+
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  /* height: calc(100vh - 80px); */
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+}
+
+.topContainer {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  .topContainer {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -0.5rem;
+}
+
+.exitIcon {
+  font-size: 32px;
+  color: var(--primary-color);
+  cursor: pointer;
+  margin-top: -2px;
+  transform: rotate(45deg);
+  margin-left: -8px;
+}
+
+.ellipsisIcon {
+  font-size: 18px;
+  color: var(--primary-color);
+  cursor: pointer;
+  margin-right: -4px;
+}
+
+.checkboxContainer {
+  height: 1.2rem;
+  width: 1.2rem;
+  font-size: 12px;
+}
+
+.nameContainer {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nameInput {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  width: 100%;
+  margin-left: 0px;
+  padding: 0;
+  text-overflow: ellipsis;
+  font-family: var(--text-font-family);
+  color: var(--text-color);
+}
+
+.nameInput::placeholder {
+  color: var(--text-color);
+}
+
+.rowDropdownContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.columnDropdownContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.descriptionArea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--secondary-color);
+  resize: vertical;
+  min-height: 70px;
+  max-height: 120px;
+  overflow-y: auto;
+  font-family: var(--text-font-family);
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.descriptionArea::placeholder {
+  font-family: var(--text-font-family);
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.optionsParent {
+  position: relative;
+}
+
+.optionsContainer {
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  border: 2px solid var(--secondary-color);
+  right: 0;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  color: rgb(83, 83, 83);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.option {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.optionText {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.optionRemoveIcon {
+  font-size: 1rem;
+  top: -2px;
+  font-size: 1.1rem;
+  color: rgba(253, 107, 107, 0.541);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Existing styles */
+.dropdownContainer {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (max-width: 600px) {
+  .dropdownContainer {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+}

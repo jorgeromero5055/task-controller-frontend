@@ -1,0 +1,63 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  color: var(--text-color);
+}
+
+.addIcon {
+  font-size: 28px;
+  color: var(--primary-color);
+  margin-top: -4px;
+  margin-bottom: -4px;
+  margin-right: -4px;
+  cursor: pointer;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  padding: 4px;
+  border: none;
+  border-bottom: 2px solid #d7d7d7;
+  margin-right: 10px;
+  outline: none;
+  text-overflow: ellipsis;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: var(--text-color);
+}
+
+.deleteButton {
+  background-color: #fff;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2rem;
+  display: flex;
+  color: rgba(253, 107, 107, 0.541);
+  cursor: pointer;
+}
+
+.checkboxContainer {
+  height: 1rem;
+  width: 1rem;
+  margin-right: 12px;
+  font-size: 16px; /* Adjust the size of the checkmark */
+}
+
+.listSeperator {
+  height: 20px;
+}

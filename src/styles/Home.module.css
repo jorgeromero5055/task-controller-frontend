@@ -1,0 +1,137 @@
+.container {
+  display: flex; /* Align components horizontally */
+  flex-direction: column; /* Stack the navbar and main content vertically */
+  /* height: calc(100% - 80px); */
+  width: 100vw; /* Full width of the viewport */
+  overflow: hidden;
+  /* height: 100vh; */
+  position: relative;
+  box-sizing: border-box;
+  /* overflow-x: hidden; */
+  /* background-color: red; */
+}
+
+.taskContainer {
+  display: flex;
+  /* flex: 1; */
+  /* height: calc(100vh - 80px); */
+  box-sizing: border-box;
+  position: relative;
+}
+
+.taskList {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Stack search bar and list vertically */
+  border-right: 1px solid #ccc;
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  /* overflow: hidden; */
+  /* overflow: hidden; */
+  /* padding-bottom: 2rem; */
+}
+
+@media (max-width: 767px) {
+  .taskList.itemVisible {
+    display: none; /* Default: hidden */
+  }
+}
+
+.searchBar {
+  background-color: #fff; /* Ensure it doesn't blend into the scrolling content */
+  padding-top: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  /* margin-bottom: 2rem; */
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+}
+
+.scrollableList {
+  flex: 1;
+  /* overflow-y: scroll;  */
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  padding-left: 0.5rem;
+
+  /* padding-top: 1rem; */
+}
+
+/* For modern browsers (Firefox, Chrome, Edge) */
+.scrollable {
+  scrollbar-width: thin; /* For Firefox: thin scrollbar */
+  scrollbar-color: gray white; /* For Firefox: colors for thumb and track */
+  transition: all 0.3s ease; /* Smooth color transition */
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 10px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+.taskItem {
+  width: 30%; /* Default width for screens above 1024px */
+
+  /* height: calc(100vh - 80px); */
+}
+
+@media (max-width: 1024px) {
+  .taskItem {
+    width: 40%; /* Width for screens between 768px and 1024px */
+  }
+}
+
+@media (max-width: 767px) {
+  .taskItem {
+    display: none; /* Default: hidden */
+  }
+
+  .taskItem.itemVisible {
+    display: block;
+    width: 100%;
+  }
+}
+
+.resizer {
+  width: 5px; /* Default width for screens above 1024px */
+  cursor: ew-resize; /* Enable scroll if content overflows */
+}
+
+@media (max-width: 1024px) {
+  .resizer {
+    display: none; /* Hide for screens below 768px */
+  }
+}
+
+.emptyStyle {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: column;
+}
+.emptyText {
+  z-index: 2;
+  font-size: 18px;
+  color: #6a6969;
+}
+
+.backgroundIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-53%);
+  font-size: 296px;
+  color: #f7f7f7;
+  z-index: 1;
+}

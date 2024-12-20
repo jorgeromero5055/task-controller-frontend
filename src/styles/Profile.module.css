@@ -1,0 +1,162 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  /* height: 100vh; */
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  z-index: 1000;
+  box-sizing: border-box;
+  /* overflow-y: hidden; */
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  align-items: flex-start;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.modal {
+  padding: 2rem 1rem;
+  border-radius: 8px;
+  width: 400px;
+  /* max-height: 90%; */
+  max-width: 90%;
+  /* overflow-y: auto;
+  overflow-x: hidden; */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  background-color: #f9f9f9;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  color: #8e8e8e;
+  box-sizing: border-box;
+  position: relative;
+  margin: auto;
+}
+
+.icon {
+  background-color: #eaecff;
+  border-radius: 50%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #597dff;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.subtext {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.exitIcon {
+  font-size: 32px;
+  color: #888;
+  cursor: pointer;
+  transform: rotate(45deg);
+  position: absolute;
+  right: 4px;
+  top: 4px;
+}
+
+.dividerContainer {
+  display: flex;
+  margin: 1rem;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #ddd;
+  margin: 0;
+  padding: 0; /* Remove padding */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.rowItem {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.emailIcon {
+  font-size: 1.2rem;
+}
+
+.deleteIcon {
+  font-size: 1.2rem;
+}
+
+.errorContainer {
+  display: flex;
+  align-items: center;
+  background-color: #fff5f5;
+  border: 1px solid #f5c2c2;
+  color: #d9534f;
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  margin: 0.5rem;
+}
+
+.errorIcon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+  color: #d9534f;
+}
+
+.errorText {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.logoutLink {
+  color: #d9534f; /* Customize link color */
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.bottomRow {
+  margin-bottom: -0.5rem;
+}
+
+.row:hover {
+  color: #565656;
+}
+
+.dividerContianer {
+  display: flex;
+  margin: 1rem;
+}

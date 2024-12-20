@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--secondary-color);
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-right: 1rem;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.searchIcon {
+  margin-right: 8px;
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.searchBar {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background-color: transparent;
+}
+
+.clearIcon {
+  margin-left: 8px;
+  color: var(--primary-color);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Space between buttons */
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem; /* Circle shape for the button */
+  cursor: pointer;
+  width: 36px;
+  height: 36px; /* Ensures uniform size */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  position: 'relative';
+}
+
+.addIconInsideButton {
+  font-size: 1rem; /* Size of the icon inside the button */
+  color: #fff;
+}
+
+.filterIconInsideButton {
+  font-size: 0.9rem; /* Size of the icon inside the button */
+  color: #fff;
+}
+/* 
+.filterList {
+  position: absolute;
+  white-space: nowrap;
+  right: 0;
+  z-index: 10;
+  top: 120%;
+} */

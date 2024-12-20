@@ -1,0 +1,205 @@
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  /* height: calc(100vh - 80px); */
+  /* padding-bottom: 2rem; */
+  /* box-sizing: border-box; */
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
+  box-sizing: border-box;
+
+  /* margin-bottom: 2rem; */
+  /* background-color: red; */
+}
+
+.errorContainer {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 1rem;
+  /* background-color: green; */
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 1rem;
+  padding-left: 2rem;
+  margin-right: 1.5rem;
+  box-sizing: border-box;
+  flex: 1; /* Take up remaining space */
+  overflow-y: scroll; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Enable vertical scrolling */
+}
+
+@media (max-width: 767px) {
+  .topContainer {
+    /* padding-top: 1rem; */
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+/* For modern browsers (Firefox, Chrome, Edge) */
+.scrollable {
+  scrollbar-width: thin; /* For Firefox: thin scrollbar */
+  scrollbar-color: gray white; /* For Firefox: colors for thumb and track */
+  transition: all 0.3s ease; /* Smooth color transition */
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 10px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+.exitIcon {
+  font-size: 32px;
+  color: var(--primary-color);
+  cursor: pointer;
+  margin-top: -2px;
+  transform: rotate(45deg);
+  margin-left: -8px;
+}
+
+.ellipsisIcon {
+  font-size: 18px;
+  color: var(--primary-color);
+  cursor: pointer;
+  margin-right: -4px;
+}
+
+.checkboxContainer {
+  height: 1.2rem;
+  width: 1.2rem;
+  font-size: 12px;
+}
+
+.nameContainer {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nameInput {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  width: 100%;
+  margin-left: 0px;
+  padding: 0;
+  text-overflow: ellipsis;
+  font-family: var(--text-font-family);
+  color: var(--text-color);
+}
+
+.nameInput::placeholder {
+  color: var(--text-color);
+}
+
+.rowDropdownContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+}
+
+.columnDropdownContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.descriptionArea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--secondary-color);
+  resize: vertical;
+  min-height: 70px;
+  max-height: 120px;
+  overflow-y: auto;
+  font-family: var(--text-font-family);
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.descriptionArea::placeholder {
+  font-family: var(--text-font-family);
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.optionsParent {
+  position: relative;
+}
+
+.optionsContainer {
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  border: 2px solid var(--secondary-color);
+  right: 0;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  color: rgb(83, 83, 83);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.option {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.optionText {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.optionRemoveIcon {
+  font-size: 1rem;
+  top: -2px;
+  font-size: 1.1rem;
+  color: rgba(253, 107, 107, 0.541);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Existing styles */
+.dropdownContainer {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (max-width: 600px) {
+  .dropdownContainer {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+}

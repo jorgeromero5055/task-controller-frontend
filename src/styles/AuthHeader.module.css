@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
+.logo {
+  height: 52px; /* Adjust size as needed */
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.subtext {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.successIcon {
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  color: green;
+}
+
+.errorIcon {
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  color: red;
+}

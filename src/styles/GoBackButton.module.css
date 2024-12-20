@@ -1,0 +1,29 @@
+.backToLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit; /* Match the font of the rest of the component */
+  color: #597dff;
+}
+
+.backIcon {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  color: #597dff;
+
+  margin-top: 1px;
+}

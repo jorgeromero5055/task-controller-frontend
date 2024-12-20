@@ -1,0 +1,10 @@
+.authLinkContainer {
+  font-size: 16px;
+  color: #737373; /* Adjust color as per your theme */
+}
+
+.authLinkText {
+  color: #6b6b6b; /* Customize link color */
+  font-weight: bold;
+  cursor: pointer;
+}

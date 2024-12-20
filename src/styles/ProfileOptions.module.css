@@ -1,0 +1,145 @@
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
+.subcontainer {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 2rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.labelText {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  color: var(--text-color);
+  border: 2px solid var(--secondary-color); /* Border for normal state */
+}
+
+.input::placeholder {
+  color: var(--text-color);
+}
+
+.toggleButton {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  background: none;
+  border: none;
+  color: #597dff;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #597dff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 0.5rem;
+}
+
+.iconSmall {
+  font-size: 1.2rem;
+}
+
+.fieldErrorContainer {
+  /* display: flex;
+  align-items: center;
+  background-color: #fff5f5;
+  border: 1px solid #f5c2c2;
+  color: #d9534f;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem; */
+  margin-top: -0.5rem;
+}
+
+.errorContainer {
+  display: flex;
+  align-items: center;
+  background-color: #fff5f5;
+  border: 1px solid #f5c2c2;
+  color: #d9534f;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.errorIcon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+  color: #d9534f;
+}
+
+.errorText {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.forgotPasswordContainer {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+
+.forgotPasswordButton {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.forgotPasswordButton {
+  background: none;
+  border: none;
+  color: #8e8e8e;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.forgotPasswordButton:hover {
+  color: #565656;
+}

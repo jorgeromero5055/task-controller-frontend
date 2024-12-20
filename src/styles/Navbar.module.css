@@ -1,0 +1,41 @@
+.navBar {
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Aligns items to the left, center, and right */
+  padding: 0rem 2rem;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.logo {
+  height: 40px; /* Adjust size as needed */
+  width: auto;
+  margin-right: 0.5rem;
+}
+
+.logoText {
+  color: #3e3e3e;
+  font-size: 18px;
+}
+
+.icon {
+  background-color: whitesmoke; /* Make background transparent */
+  border: 3px solid #7d99ff; /* Add a border with the same color as the previous background */
+  border-radius: 50%;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #597dff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

@@ -1,0 +1,259 @@
+/* Existing Styles */
+.itemHolder {
+  display: flex;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.list-item {
+  display: flex;
+  flex: 1;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.list-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  /* border-radius: 4px; */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: relative;
+  transition: left 0.5s ease-out; /* Smooth snapping */
+
+  width: 100%;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 0;
+  right: -5rem;
+  height: 100%;
+  width: 5rem;
+  background-color: #ff1900; /* Red background for delete */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border: none;
+  color: white;
+}
+
+.deleteIcon {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.list-item:hover .deleteButton {
+  opacity: 1; /* Show on hover */
+  transform: translateY(0); /* Slide up into view */
+}
+
+.list-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ellipsis-icon {
+  font-size: 16px;
+  color: var(--primary-color);
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.itemHolder:hover .ellipsis-icon {
+  visibility: visible;
+}
+
+/* Converted Styles */
+.topContainer {
+  padding-bottom: 1rem;
+}
+
+/* Converted Styles */
+.container {
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+/* Converted Styles */
+.bottomContainer {
+  padding-top: 1.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center; /* Align icon and title vertically */
+  font-size: 1rem; /* Smaller size for the title */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  margin-bottom: 5px; /* Slight margin for spacing */
+  padding-left: 1rem;
+}
+
+.icon {
+  margin-right: 8px; /* Space between the icon and the title */
+  font-size: 16px; /* Adjust the size to match the design */
+  color: var(--primary-color); /* Subtle gray color for the icon */
+  display: flex; /* Align the icon properly */
+  align-items: center;
+}
+
+.type {
+  font-weight: bold; /* Bold for the title */
+  font-size: 14px;
+}
+
+.count {
+  font-size: 12px; /* Smaller size for the count */
+  color: #888;
+  margin-left: 5px;
+}
+
+.taskList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.emptyListItem {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0.3rem;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin-left: 1rem;
+  color: rgb(65, 65, 65);
+  font-size: 16px;
+}
+
+.taskRow {
+  display: flex;
+  justify-content: space-between; /* Align name/checkbox on the left and date on the right */
+  align-items: center; /* Align checkbox and name vertically */
+  margin-bottom: 0.5rem; /* Space between rows */
+}
+
+.nameRow {
+  display: flex;
+  align-items: center; /* Vertically align checkbox and name */
+  gap: 0.5rem; /* Add spacing between the checkbox and task name */
+  flex: 1; /* Allow this row to fill the available space */
+  overflow: hidden; /* Prevent children from overflowing the container */
+}
+
+.taskName {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  overflow: hidden; /* Prevent overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis when text is too long */
+  white-space: nowrap; /* Prevent wrapping to a new line */
+  flex: 1; /* Allow the task name to take up remaining space in its row */
+  text-align: left;
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between; /* Align description and priority */
+  margin-top: 5px;
+}
+
+.taskDescription {
+  font-size: 12px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  overflow: hidden; /* Prevent overflowing content */
+  text-overflow: ellipsis; /* Display ellipsis (...) when text overflows */
+  white-space: nowrap; /* Prevent text wrapping to a new line */
+  margin-left: 1.625rem;
+}
+
+.taskDate {
+  font-size: 12px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  margin-left: 1.5rem;
+}
+
+.taskPriority {
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap; /* Prevent text wrapping to a new line */
+  margin-left: 1rem;
+  text-align: right;
+  flex: 1;
+}
+
+.checkboxContainer {
+  height: 1rem;
+  width: 1rem;
+  font-size: 16px; /* Adjust the size of the checkmark */
+}
+
+.optionParent {
+  width: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.optionChild {
+  width: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.optionsContainer {
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  border: 2px solid var(--secondary-color); /* Border for the unchecked state */
+  top: 16px;
+  left: 4px;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  color: rgb(83, 83, 83);
+  cursor: pointer;
+}
+
+.option {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.optionText {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.optionRemoveIcon {
+  font-size: 1.1rem;
+  color: rgba(253, 107, 107, 0.541);
+}
+
+.showMoreButton {
+  margin-top: 1rem;
+  font-size: 1rem;
+  /* text-align: left; */
+  width: 100%;
+  background-color: transparent; /* Red background for delete */
+  border: none;
+  color: var(--primary-color);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.errorContainer {
+  margin-left: 1rem;
+}
