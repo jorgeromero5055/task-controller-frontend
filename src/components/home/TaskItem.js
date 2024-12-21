@@ -91,7 +91,6 @@ const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
 
   const blurHandler = (e) => {
     const relatedTarget = e.relatedTarget;
-
     if (
       (itemOptions.current && itemOptions.current.contains(relatedTarget)) ||
       (priorityOptions.current &&

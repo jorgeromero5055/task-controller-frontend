@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RouteGuard from './RouteGaurd';
 import PasswordReset from './Pages/PasswordReset';
@@ -8,6 +7,7 @@ import { TaskProvider } from './contexts/TaskContext';
 import EmailRecovery from './Pages/EmailRecovery';
 import LogIn from './Pages/LogIn';
 import SignUp from './Pages/SignUp';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
             <Route path="/reset-password" element={<PasswordReset />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/email-recovery" element={<EmailRecovery />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </RouteGuard>
