@@ -63,14 +63,21 @@ describe('TaskItem Component', () => {
   describe('List Rendering', () => {
     it('renders item elements correctly', async () => {
       renderComponent();
+
       await waitFor(async () => {
         expect(screen.getByText('test name 1')).toBeInTheDocument();
+      });
+      await waitFor(async () => {
         expect(
           screen.getByText(new Date().toLocaleDateString())
         ).toBeInTheDocument();
+      });
+      await waitFor(async () => {
         expect(
           screen.getByLabelText(/Test Name 1 Item Checkbox/i)
         ).toBeInTheDocument();
+      });
+      await waitFor(async () => {
         expect(
           screen.getByLabelText(/Test Name 1 Options/i)
         ).toBeInTheDocument();
@@ -86,9 +93,7 @@ describe('TaskItem Component', () => {
         `${mockItem.name} item checkbox`
       );
 
-      await waitFor(() => {
-        fireEvent.click(itemCheckbox);
-      });
+      fireEvent.click(itemCheckbox);
 
       await waitFor(() => {
         expect(mockEditTask).toHaveBeenCalledWith({
@@ -106,9 +111,7 @@ describe('TaskItem Component', () => {
         `${mockItem.name} item checkbox`
       );
 
-      await waitFor(() => {
-        fireEvent.click(itemCheckbox);
-      });
+      fireEvent.click(itemCheckbox);
 
       await waitFor(() => {
         expect(mockEditTask).toHaveBeenCalledWith({
@@ -133,9 +136,7 @@ describe('TaskItem Component', () => {
         `${mockItem.name} item checkbox`
       );
 
-      await waitFor(() => {
-        fireEvent.click(itemCheckbox);
-      });
+      fireEvent.click(itemCheckbox);
 
       await waitFor(() => {
         expect(mockEditTask).toHaveBeenCalledWith({
@@ -160,9 +161,7 @@ describe('TaskItem Component', () => {
         `${mockItem.name} item checkbox`
       );
 
-      await waitFor(() => {
-        fireEvent.click(itemCheckbox);
-      });
+      fireEvent.click(itemCheckbox);
 
       await waitFor(() => {
         expect(mockEditTask).toHaveBeenCalledWith({
@@ -208,9 +207,7 @@ describe('TaskItem Component', () => {
         `${mockItem.name} item checkbox`
       );
 
-      await waitFor(() => {
-        fireEvent.click(itemCheckbox);
-      });
+      fireEvent.click(itemCheckbox);
 
       await waitFor(() => {
         expect(
@@ -227,17 +224,13 @@ describe('TaskItem Component', () => {
         `${mockItem.name} item checkbox`
       );
 
-      await waitFor(() => {
-        fireEvent.click(itemCheckbox);
-      });
+      fireEvent.click(itemCheckbox);
 
       await waitFor(() => {
         screen.getByText('Failed to edit task please try again');
       });
 
-      await waitFor(() => {
-        fireEvent.click(itemCheckbox);
-      });
+      fireEvent.click(itemCheckbox);
 
       await waitFor(() => {
         expect(
@@ -255,33 +248,27 @@ describe('TaskItem Component', () => {
         `${mockItem.name} options`
       );
 
-      await waitFor(() => {
-        fireEvent.click(optionsButton);
-      });
+      fireEvent.click(optionsButton);
 
       const deleteButton = await screen.findByLabelText(
         `${mockItem.name} delete item`
       );
 
-      await waitFor(() => {
-        fireEvent.click(deleteButton);
-      });
+      fireEvent.click(deleteButton);
 
       await waitFor(() => {
         expect(mockDeleteTask).toHaveBeenCalledWith(mockItem.id);
       });
     });
 
-    it('options blur ', async () => {
+    it('options blur', async () => {
       renderComponent();
 
       const optionsButton = await screen.findByLabelText(
         `${mockItem.name} options`
       );
 
-      await waitFor(() => {
-        fireEvent.click(optionsButton);
-      });
+      fireEvent.click(optionsButton);
 
       fireEvent.blur(optionsButton);
 
@@ -299,17 +286,13 @@ describe('TaskItem Component', () => {
         `${mockItem.name} options`
       );
 
-      await waitFor(() => {
-        fireEvent.click(optionsButton);
-      });
+      fireEvent.click(optionsButton);
 
       const deleteButton = await screen.findByLabelText(
         `${mockItem.name} delete item`
       );
 
-      await waitFor(() => {
-        fireEvent.click(deleteButton);
-      });
+      fireEvent.click(deleteButton);
 
       await waitFor(() => {
         expect(
@@ -327,25 +310,19 @@ describe('TaskItem Component', () => {
         `${mockItem.name} options`
       );
 
-      await waitFor(() => {
-        fireEvent.click(optionsButton);
-      });
+      fireEvent.click(optionsButton);
 
       const deleteButton = await screen.findByLabelText(
         `${mockItem.name} delete item`
       );
 
-      await waitFor(() => {
-        fireEvent.click(deleteButton);
-      });
+      fireEvent.click(deleteButton);
 
       await waitFor(() => {
         screen.getByText('Failed to delete task please try again');
       });
 
-      await waitFor(() => {
-        fireEvent.click(deleteButton);
-      });
+      fireEvent.click(deleteButton);
 
       await waitFor(() => {
         expect(

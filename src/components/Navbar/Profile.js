@@ -44,17 +44,11 @@ const Profile = ({ setVisibleSection }) => {
     } catch (error) {
       const friendlyMessage = getLogoutErrorMessage(error.code);
       setLogoutError(friendlyMessage);
-      console.error('Error logging out:', error);
     }
   };
 
   return (
-    <div
-      className={`${styles.overlay} ${styles.scrollable}`}
-      // style={{
-      //   height: `${window.innerHeight}px`,
-      // }}
-    >
+    <div className={`${styles.overlay} ${styles.scrollable}`}>
       <div className={`${styles.modal} ${styles.scrollable}`}>
         <IoIosAdd
           className={styles.exitIcon}
@@ -71,7 +65,7 @@ const Profile = ({ setVisibleSection }) => {
 
         {/* Title */}
         <h2 className={styles.title}>{titleOptions[toggle]}</h2>
-        {toggle != 'menu' && (
+        {toggle !== 'menu' && (
           <p className={styles.subtext}>{subTextOptions[toggle]}</p>
         )}
         {toggle === 'menu' && (
@@ -156,7 +150,7 @@ const Profile = ({ setVisibleSection }) => {
         {toggle === 'email' && <ResetEmail user={user} />}
         {toggle === 'password' && <ResetPassword user={user} />}
         {toggle === 'delete' && <DeleteAccount user={user} />}
-        {toggle != 'menu' && (
+        {toggle !== 'menu' && (
           <GoBackButton
             options={{
               text: 'Go Back',

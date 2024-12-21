@@ -1,6 +1,6 @@
 import { useTaskContext } from '../../contexts/TaskContext';
 import { useEffect, useRef, useState } from 'react';
-import { debounceAsync, isBeforeDay } from '../../utils/helpers';
+import { isBeforeDay } from '../../utils/helpers';
 import ToDoField from '../Reusable/TodoListField';
 import CustomCheckbox from '../Reusable/CustomCheckbox';
 import CustomDropdown from '../Reusable/CustomDropdown';
@@ -49,7 +49,6 @@ const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
       await editTask(newItem);
       setSelectedItem(newItem);
     } catch (error) {
-      console.log(error.message + ' please try again');
       setError(error.message + ' please try again');
     }
   };
@@ -62,7 +61,6 @@ const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
       await deleteTask(selectedItem.id);
       setSelectedItem(null);
     } catch (error) {
-      console.log(error.message + ' please try again');
       setError(error.message + ' please try again');
     }
   };
@@ -123,18 +121,14 @@ const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
 
     return () => {
       if (containerRef.current) {
+        // eslint-disable-next-line
         observer.unobserve(containerRef.current);
       }
     };
   }, [isNarrow]);
 
   return (
-    <div
-      className={styles.itemContainer}
-      // style={{ height: `calc(100dvh - 80px` }}
-      // style={{ height: `${windowSize.height - 80}px` }}
-      style={{ height: '100%' }}
-    >
+    <div className={styles.itemContainer} style={{ height: '100%' }}>
       {error && (
         <div className={styles.errorContainer}>
           {<ErrorField error={error} />}
@@ -189,8 +183,6 @@ const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
       <div
         className={`${styles.topContainer} ${styles.scrollable}`}
         style={{
-          // paddingRight: '1rem',
-          // marginRight: '.5rem',
           ...(visibleSection === 'form' || visibleSection === 'profile'
             ? { overflow: 'hidden' }
             : {}),

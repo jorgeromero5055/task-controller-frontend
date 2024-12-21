@@ -121,103 +121,92 @@ describe('TaskForm Component', () => {
       ).not.toBeInTheDocument();
     });
 
-    it('adds subtask correctly', () => {
+    it('adds subtask correctly', async () => {
       renderComponent();
 
-      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      const addSubtask = screen.queryByLabelText('add subtask');
+
       fireEvent.click(addSubtask);
 
-      expect(
-        document.querySelector(`[aria-label="subtask item 1"]`)
-      ).toBeInTheDocument();
+      await waitFor(async () => {
+        expect(screen.getByLabelText('subtask item 1')).toBeInTheDocument();
+      });
     });
 
     it('subtask checked correctly', async () => {
       renderComponent();
 
-      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      const addSubtask = screen.queryByLabelText('add subtask');
 
-      await waitFor(() => {
-        fireEvent.click(addSubtask);
-      });
+      fireEvent.click(addSubtask);
 
       const subtaskInputCheckbox1 = await screen.findByLabelText(
         `subtask 1 input checkbox`
       );
 
-      await waitFor(() => {
-        fireEvent.click(subtaskInputCheckbox1);
-      });
+      fireEvent.click(subtaskInputCheckbox1);
 
-      expect(subtaskInputCheckbox1).toBeChecked();
+      await waitFor(() => {
+        expect(subtaskInputCheckbox1).toBeChecked();
+      });
     });
 
     it('subtask unchecked correctly', async () => {
       renderComponent();
 
-      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      const addSubtask = screen.queryByLabelText('add subtask');
 
-      await waitFor(() => {
-        fireEvent.click(addSubtask);
-      });
+      fireEvent.click(addSubtask);
 
       const subtaskInputCheckbox1 = await screen.findByLabelText(
         `subtask 1 input checkbox`
       );
 
-      await waitFor(() => {
-        fireEvent.click(subtaskInputCheckbox1);
-      });
+      fireEvent.click(subtaskInputCheckbox1);
+
+      fireEvent.click(subtaskInputCheckbox1);
 
       await waitFor(() => {
-        fireEvent.click(subtaskInputCheckbox1);
+        expect(subtaskInputCheckbox1).not.toBeChecked();
       });
-
-      expect(subtaskInputCheckbox1).not.toBeChecked();
     });
 
     it('subtask writes correctly', async () => {
       renderComponent();
 
-      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      const addSubtask = screen.queryByLabelText('add subtask');
 
-      await waitFor(() => {
-        fireEvent.click(addSubtask);
-      });
+      fireEvent.click(addSubtask);
 
       const subtaskInput1 = await screen.findByLabelText(`subtask 1 input`);
 
-      await waitFor(() => {
-        fireEvent.change(subtaskInput1, {
-          target: { value: 'test' },
-        });
+      fireEvent.change(subtaskInput1, {
+        target: { value: 'test' },
       });
-
       const inputValue = subtaskInput1.value;
-
-      expect(inputValue).toBe('test');
+      await waitFor(() => {
+        expect(inputValue).toBe('test');
+      });
     });
 
     it('subtask deletes correctly', async () => {
       renderComponent();
 
-      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      const addSubtask = screen.queryByLabelText('add subtask');
 
-      await waitFor(() => {
-        fireEvent.click(addSubtask);
-      });
+      fireEvent.click(addSubtask);
 
       const subtasDeleteButton1 = await screen.findByLabelText(
         `subtask 1 delete button`
       );
 
-      await waitFor(() => {
-        fireEvent.click(subtasDeleteButton1);
-      });
+      fireEvent.click(subtasDeleteButton1);
 
-      expect(
-        document.querySelector(`[aria-label="subtask item 1"]`)
-      ).not.toBeInTheDocument();
+      await waitFor(() => {
+        expect(
+          screen.queryByLabelText('subtask item 1')
+        ).not.toBeInTheDocument();
+      });
     });
 
     it('clear error when change is triggered', async () => {
@@ -225,9 +214,8 @@ describe('TaskForm Component', () => {
       renderComponent();
 
       const submitButton = screen.getByText(/Create/i);
-      await waitFor(() => {
-        fireEvent.click(submitButton);
-      });
+
+      fireEvent.click(submitButton);
 
       await waitFor(() => {
         screen.getByText('Failed to create task please try again');
@@ -245,7 +233,7 @@ describe('TaskForm Component', () => {
   });
 
   describe('Form Success', () => {
-    it('submits form with correct data', async () => {
+    it('render form with correct fields', async () => {
       renderComponent();
 
       const nameInput = screen.getByPlaceholderText("What's on your mind");
@@ -272,7 +260,7 @@ describe('TaskForm Component', () => {
 
       fireEvent.click(dateOption);
 
-      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      const addSubtask = screen.queryByLabelText('add subtask');
       fireEvent.click(addSubtask);
 
       const setDateButton = screen.getByText('Set');
@@ -301,11 +289,23 @@ describe('TaskForm Component', () => {
 
       await waitFor(() => {
         expect(nameInput.value).toBe('');
+      });
+
+      await waitFor(() => {
         expect(descInput.value).toBe('');
+      });
+
+      await waitFor(() => {
         expect(screen.getByText(/none/i)).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
         expect(screen.getByText('Select a date')).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
         expect(
-          document.querySelector(`[aria-label="subtask item 1"]`)
+          screen.queryByLabelText('subtask item 1')
         ).not.toBeInTheDocument();
       });
     });
@@ -338,7 +338,7 @@ describe('TaskForm Component', () => {
 
       fireEvent.click(dateOption);
 
-      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      const addSubtask = screen.queryByLabelText('add subtask');
       fireEvent.click(addSubtask);
 
       const setDateButton = screen.getByText('Set');
@@ -367,11 +367,23 @@ describe('TaskForm Component', () => {
 
       await waitFor(() => {
         expect(nameInput.value).toBe('');
+      });
+
+      await waitFor(() => {
         expect(descInput.value).toBe('');
+      });
+
+      await waitFor(() => {
         expect(screen.getByText(/none/i)).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
         expect(screen.getByText('Select a date')).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
         expect(
-          document.querySelector(`[aria-label="subtask item 1"]`)
+          screen.queryByLabelText('subtask item 1')
         ).not.toBeInTheDocument();
       });
     });
@@ -381,17 +393,14 @@ describe('TaskForm Component', () => {
       renderComponent();
 
       const submitButton = screen.getByText(/Create/i);
-      await waitFor(() => {
-        fireEvent.click(submitButton);
-      });
+
+      fireEvent.click(submitButton);
 
       await waitFor(() => {
         screen.getByText('Failed to create task please try again');
       });
 
-      await waitFor(() => {
-        fireEvent.click(submitButton);
-      });
+      fireEvent.click(submitButton);
 
       await waitFor(() => {
         expect(
@@ -405,9 +414,7 @@ describe('TaskForm Component', () => {
       renderComponent();
       const submitButton = screen.getByText(/Create/i);
 
-      await waitFor(() => {
-        fireEvent.click(submitButton);
-      });
+      fireEvent.click(submitButton);
 
       await waitFor(() => {
         expect(
@@ -444,7 +451,8 @@ describe('TaskForm Component', () => {
 
       fireEvent.click(dateOption);
 
-      const addSubtask = document.querySelector(`[aria-label="add subtask"]`);
+      const addSubtask = screen.queryByLabelText('add subtask');
+
       fireEvent.click(addSubtask);
 
       const setDateButton = screen.getByText('Set');
@@ -455,11 +463,23 @@ describe('TaskForm Component', () => {
 
       await waitFor(() => {
         expect(nameInput.value).toBe('');
+      });
+
+      await waitFor(() => {
         expect(descInput.value).toBe('');
+      });
+
+      await waitFor(() => {
         expect(screen.getByText(/none/i)).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
         expect(screen.getByText('Select a date')).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
         expect(
-          document.querySelector(`[aria-label="subtask item 1"]`)
+          screen.queryByLabelText('subtask item 1')
         ).not.toBeInTheDocument();
       });
     });
@@ -470,18 +490,14 @@ describe('TaskForm Component', () => {
 
       const submitButton = screen.getByText(/Create/i);
 
-      await waitFor(() => {
-        fireEvent.click(submitButton);
-      });
+      fireEvent.click(submitButton);
 
       await waitFor(() => {
         screen.getByText('Failed to create task please try again');
       });
 
-      await waitFor(() => {
-        const cancelButton = screen.getByText(/Cancel/i);
-        fireEvent.click(cancelButton);
-      });
+      const cancelButton = screen.getByText(/Cancel/i);
+      fireEvent.click(cancelButton);
 
       await waitFor(() => {
         expect(

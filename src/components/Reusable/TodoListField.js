@@ -28,7 +28,7 @@ const ToDoField = ({ subTasks, handleSubTasks, style }) => {
           uncheckedItems.sort((a, b) => new Date(b.id) - new Date(a.id));
           newSubtasks = [...uncheckedItems, ...checkedItems];
         } else {
-          newSubtasks = subTasks.filter((item) => item.id != payload.item.id);
+          newSubtasks = subTasks.filter((item) => item.id !== payload.item.id);
           newSubtasks.push({ ...payload.item, checked: !payload.item.checked });
         }
         break;

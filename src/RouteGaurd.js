@@ -20,22 +20,21 @@ const RouteGuard = ({ children }) => {
       const isSame = currentPath === '/email-recovery';
 
       if (error) {
-        console.log('error hit');
         if (!isAuthPath && !isSame) {
           navigate('/login');
         }
       } else {
-        console.log('success hit');
         if (isAuthPath) {
           navigate('/');
         }
       }
     }
+    // eslint-disable-next-line
   }, [loading, data, error]);
 
   if (loading) return <></>;
 
-  return children; // Render the child route if valid
+  return children;
 };
 
 export default RouteGuard;

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
-import { BsExclamationCircle } from 'react-icons/bs';
 import styles from '../../styles/ProfileOptions.module.css';
 import ErrorField from './ErrorField';
 
@@ -9,12 +8,12 @@ const validationMap = {
     if (!value) return 'email is required.';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
       return 'Please enter a valid email address.';
-    return ''; // No error
+    return '';
   },
   password: (value) => {
     if (!value) return 'password is required.';
     if (value.length < 6) return 'Password must be at least 6 characters long.';
-    return ''; // No error
+    return '';
   },
 };
 
@@ -45,9 +44,6 @@ const ProfileOptions = ({ options }) => {
       return;
 
     const validate = validationMap[options.field1.type](options.field1.value); // Get the validation function
-    if (options.field1.type === 'email') {
-      console.log('validate email', options.field1.value, validate);
-    }
     if (validate) {
       setField1Error(validate);
     }
@@ -74,7 +70,7 @@ const ProfileOptions = ({ options }) => {
 
     if (
       options.field2.title === 'Confirm Password' &&
-      options.field2.value != options.field1.value
+      options.field2.value !== options.field1.value
     ) {
       setField2Error('Passswords must match');
     } else {
@@ -106,7 +102,7 @@ const ProfileOptions = ({ options }) => {
 
     if (
       options.field3.title === 'Confirm Password' &&
-      options.field3.value != options.field2.value
+      options.field3.value !== options.field2.value
     ) {
       setField3Error('Passswords must match');
     } else {

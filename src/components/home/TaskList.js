@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTaskContext } from '../../contexts/TaskContext';
-import { FaChevronDown, FaChevronRight } from 'react-icons/fa'; // FontAwesome Check icon
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { isBeforeDay } from '../../utils/helpers';
 import CustomCheckbox from '../Reusable/CustomCheckbox';
 import { IoEllipsisVertical } from 'react-icons/io5';
@@ -21,7 +21,7 @@ const TaskList = ({
 }) => {
   const { editTask, deleteTask, shownItems, isTouch } = useTaskContext();
 
-  const [isOpen, setIsOpen] = useState(true); // Toggle visibility
+  const [isOpen, setIsOpen] = useState(true);
   const [toggle, setToggle] = useState(null);
   const [error, setError] = useState({
     id: null,
@@ -166,12 +166,14 @@ const TaskList = ({
       return () => {
         if (observerRef.current) {
           if (lastItemRef.current) {
+            // eslint-disable-next-line
             observerRef.current.unobserve(lastItemRef.current);
           }
           observerRef.current.disconnect();
         }
       };
     }
+    // eslint-disable-next-line
   }, [list, setShowCompleted]);
 
   return (

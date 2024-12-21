@@ -288,7 +288,7 @@ describe('TaskItem Component', () => {
       ).toBeTruthy();
     });
 
-    it('sort priority in ascending order', async () => {
+    it('sort date in ascending order', async () => {
       mockSortOptions = { ...mockSortOptions, field: 'Date' };
       renderComponent();
 
@@ -317,7 +317,7 @@ describe('TaskItem Component', () => {
       ).toBeTruthy();
     });
 
-    it('sort priority in descending order', async () => {
+    it('sort date in descending order', async () => {
       mockSortOptions = { field: 'Date', order: 'Descending' };
       renderComponent();
 
@@ -348,7 +348,7 @@ describe('TaskItem Component', () => {
   });
 
   describe('Show/Hide Content', () => {
-    it('hide completed list', async () => {
+    it('hide overdue list', async () => {
       mockShownItems = { ...mockShownItems, overdue: false };
       renderComponent();
       expect(screen.queryByText('Overdue')).not.toBeInTheDocument();
@@ -370,24 +370,24 @@ describe('TaskItem Component', () => {
       renderComponent();
 
       expect(
-        screen.queryByText('test description upcoming 1')
+        screen.getByText('test description upcoming 1')
       ).toBeInTheDocument();
 
       expect(
-        screen.queryByText('test description overdue 1')
+        screen.getByText('test description overdue 1')
       ).toBeInTheDocument();
 
       expect(
-        screen.queryByText('test description complete 1')
+        screen.getByText('test description complete 1')
       ).toBeInTheDocument();
     });
 
     it('Show list item priority', async () => {
       mockShownItems = { ...mockShownItems, priority: true };
       renderComponent();
-      expect(screen.queryByText('Low Priority')).toBeInTheDocument();
-      expect(screen.queryByText('Medium Priority')).toBeInTheDocument();
-      expect(screen.queryByText('Top Priority')).toBeInTheDocument();
+      expect(screen.getByText('Low Priority')).toBeInTheDocument();
+      expect(screen.getByText('Medium Priority')).toBeInTheDocument();
+      expect(screen.getByText('Top Priority')).toBeInTheDocument();
     });
   });
 
@@ -473,34 +473,16 @@ describe('TaskItem Component', () => {
           id: `674f82edf177f2aeb316eb0${6 + i}`,
         });
       }
-
       renderComponent();
-      expect(screen.queryByText('test name completed 5')).toBeInTheDocument();
+      expect(screen.getByText('Show more')).toBeInTheDocument();
+
+      expect(screen.getByText('test name completed 5')).toBeInTheDocument();
       expect(
         screen.queryByText('test name completed 6')
       ).not.toBeInTheDocument();
     });
 
-    it('limit Complete list to 5 items', async () => {
-      for (let i = 1; i <= 8; i++) {
-        mockTasks.push({
-          ...mockTasks[5],
-
-          description: `test description complete ${2 + i}`,
-          name: `test name completed ${2 + i}`,
-          id: `674f82edf177f2aeb316eb0${6 + i}`,
-        });
-      }
-      renderComponent();
-      expect(screen.queryByText('Show more')).toBeInTheDocument();
-
-      expect(screen.queryByText('test name completed 5')).toBeInTheDocument();
-      expect(
-        screen.queryByText('test name completed 6')
-      ).not.toBeInTheDocument();
-    });
-
-    it('limit Complete list to 5 items', async () => {
+    it('show more than 5 completed items', async () => {
       for (let i = 1; i <= 8; i++) {
         mockTasks.push({
           ...mockTasks[5],
@@ -514,12 +496,15 @@ describe('TaskItem Component', () => {
 
       const showMoreButton = screen.queryByText('Show more');
 
+      fireEvent.click(showMoreButton);
+
       await waitFor(async () => {
-        fireEvent.click(showMoreButton);
+        expect(screen.getByText('test name completed 6')).toBeInTheDocument();
       });
 
-      expect(screen.queryByText('test name completed 6')).toBeInTheDocument();
-      expect(screen.queryByText('Show more')).not.toBeInTheDocument();
+      await waitFor(async () => {
+        expect(screen.queryByText('Show more')).not.toBeInTheDocument();
+      });
     });
   });
 });

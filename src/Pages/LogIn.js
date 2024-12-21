@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../firebaseConfig';
-import { useTaskContext } from '../contexts/TaskContext';
 import AuthHeader from '../components/Reusable/AuthHeader';
 import ProfileOptions from '../components/Reusable/ProfileOptions';
 import AuthLink from '../components/Reusable/AuthLink';
@@ -30,7 +29,6 @@ const LogIn = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/');
     } catch (err) {
-      console.log('auth error', signInErrorMessageHandler(err.code));
       setError(signInErrorMessageHandler(err.code));
     } finally {
       setLoading(false);

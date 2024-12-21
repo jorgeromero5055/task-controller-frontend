@@ -77,6 +77,7 @@ const TaskContainer = ({ selectedItem, setSelectedItem, searchQuery }) => {
     } else if (sortOptions.field === 'Alphabetical') {
       return sortName(normalFilterList, sortOptions.order);
     }
+    // eslint-disable-next-line
   }, [tasks, listDate, sortOptions]);
 
   const searchNormalList = useMemo(() => {
@@ -85,6 +86,7 @@ const TaskContainer = ({ selectedItem, setSelectedItem, searchQuery }) => {
         task.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         task.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    // eslint-disable-next-line
   }, [tasks, listDate, sortOptions, searchQuery]);
 
   const completedFilterList = useMemo(() => {
@@ -122,6 +124,7 @@ const TaskContainer = ({ selectedItem, setSelectedItem, searchQuery }) => {
         return sortName(completedFilterList, sortOptions.order);
       }
     } else return [];
+    // eslint-disable-next-line
   }, [tasks, listDate, sortOptions, shownItems.completed]);
 
   const searchCompletedList = useMemo(() => {
@@ -132,6 +135,7 @@ const TaskContainer = ({ selectedItem, setSelectedItem, searchQuery }) => {
           task.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
     } else return [];
+    // eslint-disable-next-line
   }, [tasks, listDate, sortOptions, searchQuery, shownItems.completed]);
 
   const overdueFilterList = useMemo(() => {
@@ -169,6 +173,7 @@ const TaskContainer = ({ selectedItem, setSelectedItem, searchQuery }) => {
         return sortName(overdueFilterList, sortOptions.order);
       }
     } else return [];
+    // eslint-disable-next-line
   }, [tasks, listDate, sortOptions, shownItems.overdue]);
 
   const searchOverdueList = useMemo(() => {
@@ -179,6 +184,7 @@ const TaskContainer = ({ selectedItem, setSelectedItem, searchQuery }) => {
           task.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
     } else return [];
+    // eslint-disable-next-line
   }, [tasks, listDate, sortOptions, searchQuery, shownItems.overdue]);
 
   if (loadingState === 'loading') return <></>;

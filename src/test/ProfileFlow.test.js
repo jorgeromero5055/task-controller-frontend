@@ -31,7 +31,6 @@ jest.mock('@apollo/client', () => {
     useMutation: () => [mockDeleteFucntion],
   };
 });
-const { useMutation } = jest.requireMock('@apollo/client');
 
 jest.mock('../utils/graphQl/users', () => ({
   DELETE_USER: ``,
@@ -68,34 +67,41 @@ describe('Profile Flow', () => {
       delete window.location;
       window.location = { href: '' };
       renderResetPassword();
+
+      const currentPasswordField = screen.getByPlaceholderText(
+        'Enter your current password'
+      );
+      fireEvent.change(currentPasswordField, { target: { value: '654321' } });
+      const newPasswordField = screen.getByPlaceholderText(
+        'Enter your new password'
+      );
+      fireEvent.change(newPasswordField, { target: { value: '123456' } });
+      const confirmPasswordField = screen.getByPlaceholderText(
+        'Confirm your new password'
+      );
+      fireEvent.change(confirmPasswordField, { target: { value: '123456' } });
+      const resetPasswordButton = screen.getByText('Reset Password');
+      fireEvent.click(resetPasswordButton);
       await waitFor(async () => {
-        const currentPasswordField = screen.getByPlaceholderText(
-          'Enter your current password'
+        expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
+          mockUser.email,
+          '654321'
         );
-        fireEvent.change(currentPasswordField, { target: { value: '654321' } });
-        const newPasswordField = screen.getByPlaceholderText(
-          'Enter your new password'
-        );
-        fireEvent.change(newPasswordField, { target: { value: '123456' } });
-        const confirmPasswordField = screen.getByPlaceholderText(
-          'Confirm your new password'
-        );
-        fireEvent.change(confirmPasswordField, { target: { value: '123456' } });
-        const resetPasswordButton = screen.getByText('Reset Password');
-        fireEvent.click(resetPasswordButton);
       });
 
-      expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
-        mockUser.email,
-        '654321'
-      );
-      expect(reauthenticateWithCredential).toHaveBeenCalledWith(
-        mockUser,
-        undefined
-      );
+      await waitFor(async () => {
+        expect(reauthenticateWithCredential).toHaveBeenCalledWith(
+          mockUser,
+          undefined
+        );
+      });
 
-      expect(updatePassword).toHaveBeenCalledWith(mockUser, '123456');
-      expect(window.location.href).toBe('/login?success=passwordReset');
+      await waitFor(async () => {
+        expect(updatePassword).toHaveBeenCalledWith(mockUser, '123456');
+      });
+      await waitFor(async () => {
+        expect(window.location.href).toBe('/login?success=passwordReset');
+      });
     });
 
     it('reset password with error', async () => {
@@ -105,33 +111,42 @@ describe('Profile Flow', () => {
         new Error('Reset Password failed')
       );
       renderResetPassword();
+
+      const currentPasswordField = screen.getByPlaceholderText(
+        'Enter your current password'
+      );
+      fireEvent.change(currentPasswordField, { target: { value: '654321' } });
+      const newPasswordField = screen.getByPlaceholderText(
+        'Enter your new password'
+      );
+      fireEvent.change(newPasswordField, { target: { value: '123456' } });
+      const confirmPasswordField = screen.getByPlaceholderText(
+        'Confirm your new password'
+      );
+      fireEvent.change(confirmPasswordField, { target: { value: '123456' } });
+      const resetPasswordButton = screen.getByText('Reset Password');
+      fireEvent.click(resetPasswordButton);
       await waitFor(async () => {
-        const currentPasswordField = screen.getByPlaceholderText(
-          'Enter your current password'
+        expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
+          mockUser.email,
+          '654321'
         );
-        fireEvent.change(currentPasswordField, { target: { value: '654321' } });
-        const newPasswordField = screen.getByPlaceholderText(
-          'Enter your new password'
-        );
-        fireEvent.change(newPasswordField, { target: { value: '123456' } });
-        const confirmPasswordField = screen.getByPlaceholderText(
-          'Confirm your new password'
-        );
-        fireEvent.change(confirmPasswordField, { target: { value: '123456' } });
-        const resetPasswordButton = screen.getByText('Reset Password');
-        fireEvent.click(resetPasswordButton);
       });
 
-      expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
-        mockUser.email,
-        '654321'
-      );
-      expect(reauthenticateWithCredential).toHaveBeenCalledWith(
-        mockUser,
-        undefined
-      );
-      expect(updatePassword).not.toHaveBeenCalled();
-      expect(window.location.href).toBe('');
+      await waitFor(async () => {
+        expect(reauthenticateWithCredential).toHaveBeenCalledWith(
+          mockUser,
+          undefined
+        );
+      });
+
+      await waitFor(async () => {
+        expect(updatePassword).not.toHaveBeenCalled();
+      });
+
+      await waitFor(async () => {
+        expect(window.location.href).toBe('');
+      });
 
       await waitFor(async () => {
         expect(
@@ -152,35 +167,39 @@ describe('Profile Flow', () => {
       delete window.location;
       window.location = { href: '' };
       renderResetEmail();
-      await waitFor(async () => {
-        const newEmailField = screen.getByPlaceholderText(
-          'Enter your new email'
-        );
-        fireEvent.change(newEmailField, {
-          target: { value: 'testing@emai2.com' },
-        });
-
-        const currentPasswordField = screen.getByPlaceholderText(
-          'Enter your current password'
-        );
-        fireEvent.change(currentPasswordField, { target: { value: '654321' } });
-
-        const updateEmailButton = screen.getByText('Update Email');
-        fireEvent.click(updateEmailButton);
+      const newEmailField = screen.getByPlaceholderText('Enter your new email');
+      fireEvent.change(newEmailField, {
+        target: { value: 'testing@emai2.com' },
       });
 
-      expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
-        mockUser.email,
-        '654321'
+      const currentPasswordField = screen.getByPlaceholderText(
+        'Enter your current password'
       );
+      fireEvent.change(currentPasswordField, { target: { value: '654321' } });
 
-      expect(reauthenticateWithCredential).toHaveBeenCalledWith(
-        mockUser,
-        undefined
-      );
+      const updateEmailButton = screen.getByText('Update Email');
+      fireEvent.click(updateEmailButton);
+      await waitFor(async () => {
+        expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
+          mockUser.email,
+          '654321'
+        );
+      });
 
-      expect(updateEmail).toHaveBeenCalledWith(mockUser, 'testing@emai2.com');
-      expect(window.location.href).toBe('/login?success=emailReset');
+      await waitFor(async () => {
+        expect(reauthenticateWithCredential).toHaveBeenCalledWith(
+          mockUser,
+          undefined
+        );
+      });
+
+      await waitFor(async () => {
+        expect(updateEmail).toHaveBeenCalledWith(mockUser, 'testing@emai2.com');
+      });
+
+      await waitFor(async () => {
+        expect(window.location.href).toBe('/login?success=emailReset');
+      });
     });
 
     it('reset email with error', async () => {
@@ -190,33 +209,40 @@ describe('Profile Flow', () => {
         new Error('Reset Password failed')
       );
       renderResetEmail();
-      await waitFor(async () => {
-        const newEmailField = screen.getByPlaceholderText(
-          'Enter your new email'
-        );
-        fireEvent.change(newEmailField, {
-          target: { value: 'testing@emai2.com' },
-        });
 
-        const currentPasswordField = screen.getByPlaceholderText(
-          'Enter your current password'
-        );
-        fireEvent.change(currentPasswordField, { target: { value: '654321' } });
-
-        const updateEmailButton = screen.getByText('Update Email');
-        fireEvent.click(updateEmailButton);
+      const newEmailField = screen.getByPlaceholderText('Enter your new email');
+      fireEvent.change(newEmailField, {
+        target: { value: 'testing@emai2.com' },
       });
 
-      expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
-        mockUser.email,
-        '654321'
+      const currentPasswordField = screen.getByPlaceholderText(
+        'Enter your current password'
       );
-      expect(reauthenticateWithCredential).toHaveBeenCalledWith(
-        mockUser,
-        undefined
-      );
-      expect(updateEmail).not.toHaveBeenCalled();
-      expect(window.location.href).toBe('');
+      fireEvent.change(currentPasswordField, { target: { value: '654321' } });
+
+      const updateEmailButton = screen.getByText('Update Email');
+      fireEvent.click(updateEmailButton);
+      await waitFor(async () => {
+        expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
+          mockUser.email,
+          '654321'
+        );
+      });
+
+      await waitFor(async () => {
+        expect(reauthenticateWithCredential).toHaveBeenCalledWith(
+          mockUser,
+          undefined
+        );
+      });
+
+      await waitFor(async () => {
+        expect(updateEmail).not.toHaveBeenCalled();
+      });
+
+      await waitFor(async () => {
+        expect(window.location.href).toBe('');
+      });
 
       await waitFor(async () => {
         expect(
@@ -237,30 +263,40 @@ describe('Profile Flow', () => {
     delete window.location;
     window.location = { href: '' };
     renderDeleteAccount();
-    await waitFor(async () => {
-      const currentPasswordField = screen.getByPlaceholderText(
-        'Enter your current password'
-      );
-      fireEvent.change(currentPasswordField, { target: { value: '654321' } });
 
-      const deleteAccountButton = screen.getByText('Delete Account');
-      fireEvent.click(deleteAccountButton);
+    const currentPasswordField = screen.getByPlaceholderText(
+      'Enter your current password'
+    );
+    fireEvent.change(currentPasswordField, { target: { value: '654321' } });
+
+    const deleteAccountButton = screen.getByText('Delete Account');
+    fireEvent.click(deleteAccountButton);
+
+    await waitFor(async () => {
+      expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
+        mockUser.email,
+        '654321'
+      );
     });
 
-    expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
-      mockUser.email,
-      '654321'
-    );
+    await waitFor(async () => {
+      expect(reauthenticateWithCredential).toHaveBeenCalledWith(
+        mockUser,
+        undefined
+      );
+    });
 
-    expect(reauthenticateWithCredential).toHaveBeenCalledWith(
-      mockUser,
-      undefined
-    );
+    await waitFor(async () => {
+      expect(deleteUser).toHaveBeenCalledWith(mockUser);
+    });
 
-    expect(deleteUser).toHaveBeenCalledWith(mockUser);
+    await waitFor(async () => {
+      expect(mockDeleteFucntion).toHaveBeenCalled();
+    });
 
-    expect(mockDeleteFucntion).toHaveBeenCalled();
-    expect(window.location.href).toBe('/signup');
+    await waitFor(async () => {
+      expect(window.location.href).toBe('/signup');
+    });
   });
 
   it('delete account with error', async () => {
@@ -270,30 +306,40 @@ describe('Profile Flow', () => {
       new Error('Reset Password failed')
     );
     renderDeleteAccount();
-    await waitFor(async () => {
-      const currentPasswordField = screen.getByPlaceholderText(
-        'Enter your current password'
-      );
-      fireEvent.change(currentPasswordField, { target: { value: '654321' } });
 
-      const deleteAccountButton = screen.getByText('Delete Account');
-      fireEvent.click(deleteAccountButton);
+    const currentPasswordField = screen.getByPlaceholderText(
+      'Enter your current password'
+    );
+    fireEvent.change(currentPasswordField, { target: { value: '654321' } });
+
+    const deleteAccountButton = screen.getByText('Delete Account');
+    fireEvent.click(deleteAccountButton);
+
+    await waitFor(async () => {
+      expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
+        mockUser.email,
+        '654321'
+      );
     });
 
-    expect(EmailAuthProvider.credential).toHaveBeenCalledWith(
-      mockUser.email,
-      '654321'
-    );
+    await waitFor(async () => {
+      expect(reauthenticateWithCredential).toHaveBeenCalledWith(
+        mockUser,
+        undefined
+      );
+    });
 
-    expect(reauthenticateWithCredential).toHaveBeenCalledWith(
-      mockUser,
-      undefined
-    );
+    await waitFor(async () => {
+      expect(deleteUser).not.toHaveBeenCalled();
+    });
 
-    expect(deleteUser).not.toHaveBeenCalled();
-    expect(mockDeleteFucntion).not.toHaveBeenCalled();
+    await waitFor(async () => {
+      expect(mockDeleteFucntion).not.toHaveBeenCalled();
+    });
 
-    expect(window.location.href).toBe('');
+    await waitFor(async () => {
+      expect(window.location.href).toBe('');
+    });
 
     await waitFor(async () => {
       expect(

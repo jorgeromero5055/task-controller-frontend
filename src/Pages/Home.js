@@ -2,13 +2,12 @@ import TaskContainer from '../components/home/TaskContainer';
 import Navbar from '../components/Navbar/Navbar';
 import TaskItem from '../components/home/TaskItem';
 import TaskForm from '../components/Navbar/CreateForm';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Profile from '../components/Navbar/Profile';
 import SearchContainer from '../components/home/SearchContainer';
 import styles from '../styles/Home.module.css'; // Updated to import CSS module
 import { CiFolderOn } from 'react-icons/ci';
 import { useTaskContext } from '../contexts/TaskContext';
-import FilterList from '../components/filter/FIilterPicker';
 
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState(false);

@@ -30,7 +30,6 @@ const authLink = setContext(async (_, { headers }) => {
   try {
     const token = await getToken();
     if (token) {
-      console.log('Token:', token);
       return {
         headers: {
           ...headers,
@@ -40,12 +39,10 @@ const authLink = setContext(async (_, { headers }) => {
     } else {
       console.error('No token available.');
       return { headers };
-      // throw new Error('No token available.');
     }
   } catch (error) {
     console.error('Error fetching token:', error);
     return { headers };
-    // throw new Error('Error fetching token:', error);
   }
 });
 

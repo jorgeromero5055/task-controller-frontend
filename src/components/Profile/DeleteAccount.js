@@ -31,7 +31,6 @@ const DeleteAccount = ({ user }) => {
 
       window.location.href = '/signup'; // Redirect to homepage or login page
     } catch (err) {
-      console.error('delete error', err.message);
       const userFriendlyMessage = getDeletionErrorMessage(err.code);
       setError(userFriendlyMessage);
     } finally {

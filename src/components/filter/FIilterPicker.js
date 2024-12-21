@@ -68,8 +68,6 @@ const ViewOptions = ({ filterModule, filterBlurHandler }) => {
     }
   };
 
-  console.log('window.innerHeight', window.innerHeight);
-
   return (
     <div
       className={styles.relative}

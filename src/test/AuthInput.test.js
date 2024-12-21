@@ -83,9 +83,11 @@ describe('Profile Settings', () => {
       fireEvent.blur(currentPasswordInput);
       await waitFor(async () => {
         expect(mockSetField1Value).toHaveBeenCalledWith('1234567');
+      });
 
+      await waitFor(async () => {
         expect(
-          document.querySelector(`[aria-label="error message"]`)
+          screen.queryByLabelText('error message')
         ).not.toBeInTheDocument();
       });
     });
@@ -100,13 +102,16 @@ describe('Profile Settings', () => {
       fireEvent.blur(newPasswordInput);
       await waitFor(async () => {
         expect(mockSetField2Value).toHaveBeenCalledWith('1234567');
+      });
+
+      await waitFor(async () => {
         expect(
-          document.querySelector(`[aria-label="error message"]`)
+          screen.queryByLabelText('error message')
         ).not.toBeInTheDocument();
       });
     });
 
-    it('Changes new password with success', async () => {
+    it('Changes confirm password with success', async () => {
       mockOptions.field2.value = '123456';
       mockOptions.field3.value = '123456';
       renderProfileOptions();
@@ -117,8 +122,11 @@ describe('Profile Settings', () => {
       fireEvent.blur(confirmPasswordInput);
       await waitFor(async () => {
         expect(mockSetField3Value).toHaveBeenCalledWith('1234567');
+      });
+
+      await waitFor(async () => {
         expect(
-          document.querySelector(`[aria-label="error message"]`)
+          screen.queryByLabelText('error message')
         ).not.toBeInTheDocument();
       });
     });
@@ -132,8 +140,10 @@ describe('Profile Settings', () => {
       fireEvent.blur(emailInput);
       await waitFor(async () => {
         expect(mockSetField1Value).toHaveBeenCalledWith('testing@email.com');
+      });
+      await waitFor(async () => {
         expect(
-          document.querySelector(`[aria-label="error message"]`)
+          screen.queryByLabelText('error message')
         ).not.toBeInTheDocument();
       });
     });
@@ -149,14 +159,13 @@ describe('Profile Settings', () => {
         target: { value: '' },
       });
       fireEvent.blur(currentPasswordInput);
+
       await waitFor(async () => {
-        expect(
-          document.querySelector(`[aria-label="error message"]`)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText('error message')).toBeInTheDocument();
       });
     });
 
-    it('Changes current password with short value', async () => {
+    it('Changes current password with short value error', async () => {
       mockOptions.field1.value = '12345';
       renderProfileOptions();
       const currentPasswordInput = screen.getByPlaceholderText(
@@ -167,9 +176,7 @@ describe('Profile Settings', () => {
       });
       fireEvent.blur(currentPasswordInput);
       await waitFor(async () => {
-        expect(
-          document.querySelector(`[aria-label="error message"]`)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText('error message')).toBeInTheDocument();
       });
     });
 
@@ -183,13 +190,11 @@ describe('Profile Settings', () => {
       });
       fireEvent.blur(newPasswordInput);
       await waitFor(async () => {
-        expect(
-          document.querySelector(`[aria-label="error message"]`)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText('error message')).toBeInTheDocument();
       });
     });
 
-    it('Changes new password with short value', async () => {
+    it('Changes new password with short value error', async () => {
       mockOptions.field2.value = '12345';
       renderProfileOptions();
       const newPasswordInput = screen.getByPlaceholderText(
@@ -200,9 +205,7 @@ describe('Profile Settings', () => {
       });
       fireEvent.blur(newPasswordInput);
       await waitFor(async () => {
-        expect(
-          document.querySelector(`[aria-label="error message"]`)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText('error message')).toBeInTheDocument();
       });
     });
 
@@ -216,13 +219,11 @@ describe('Profile Settings', () => {
       });
       fireEvent.blur(confirmPasswordInput);
       await waitFor(async () => {
-        expect(
-          document.querySelector(`[aria-label="error message"]`)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText('error message')).toBeInTheDocument();
       });
     });
 
-    it('Changes current password with non matching value', async () => {
+    it('Changes current password with non matching value error', async () => {
       mockOptions.field2.value = '123456';
       mockOptions.field3.value = '1234567';
       renderProfileOptions();
@@ -234,9 +235,7 @@ describe('Profile Settings', () => {
       });
       fireEvent.blur(newPasswordInput);
       await waitFor(async () => {
-        expect(
-          document.querySelector(`[aria-label="error message"]`)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText('error message')).toBeInTheDocument();
       });
     });
 
@@ -249,9 +248,7 @@ describe('Profile Settings', () => {
       });
       fireEvent.blur(emailInput);
       await waitFor(async () => {
-        expect(
-          document.querySelector(`[aria-label="error message"]`)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText('error message')).toBeInTheDocument();
       });
     });
 
@@ -267,9 +264,7 @@ describe('Profile Settings', () => {
       });
       fireEvent.blur(emailInput);
       await waitFor(async () => {
-        expect(
-          document.querySelector(`[aria-label="error message"]`)
-        ).toBeInTheDocument();
+        expect(screen.getByLabelText('error message')).toBeInTheDocument();
       });
     });
   });
@@ -289,7 +284,7 @@ describe('Profile Settings', () => {
       });
       await waitFor(async () => {
         expect(
-          document.querySelector(`[aria-label="error message"]`)
+          screen.queryByLabelText('error message')
         ).not.toBeInTheDocument();
       });
     });
@@ -308,7 +303,7 @@ describe('Profile Settings', () => {
       });
       await waitFor(async () => {
         expect(
-          document.querySelector(`[aria-label="error message"]`)
+          screen.queryByLabelText('error message')
         ).not.toBeInTheDocument();
       });
     });
@@ -327,7 +322,7 @@ describe('Profile Settings', () => {
       });
       await waitFor(async () => {
         expect(
-          document.querySelector(`[aria-label="error message"]`)
+          screen.queryByLabelText('error message')
         ).not.toBeInTheDocument();
       });
     });
@@ -345,7 +340,7 @@ describe('Profile Settings', () => {
       });
       await waitFor(async () => {
         expect(
-          document.querySelector(`[aria-label="error message"]`)
+          screen.queryByLabelText('error message')
         ).not.toBeInTheDocument();
       });
     });
@@ -388,7 +383,11 @@ describe('Profile Settings', () => {
 
     await waitFor(async () => {
       expect(currentPasswordInput).toHaveAttribute('type', 'text');
+    });
+    await waitFor(async () => {
       expect(newPasswordInput).toHaveAttribute('type', 'text');
+    });
+    await waitFor(async () => {
       expect(confirmPasswordInput).toHaveAttribute('type', 'text');
     });
   });

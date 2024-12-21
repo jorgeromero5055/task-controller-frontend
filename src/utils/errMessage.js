@@ -267,8 +267,6 @@ const reauthenticateAndUpdatePasswordErrorMessages = {
     'The new password is too weak. Please use a stronger password with at least 6 characters.',
   'auth/invalid-credential':
     'The credentials provided are invalid. Please try again.',
-  'auth/internal-error':
-    'An unexpected error occurred while updating the password. Please try again later.',
 };
 
 export const getReauthenticateAndUpdatePasswordErrorMessage = (code) =>

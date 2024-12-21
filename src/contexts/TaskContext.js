@@ -53,7 +53,6 @@ export const TaskProvider = ({ children }) => {
       const { data } = await refetch();
       const list = data.getTasks || [];
       const sanitizedList = sanitizeSubtasks(list);
-      console.log('sanitizedList', sanitizedList);
       setTasks(sanitizedList);
     } catch (error) {
       console.error('Error loading tasks:', error);
@@ -64,14 +63,12 @@ export const TaskProvider = ({ children }) => {
   const addTask = async (newItem) => {
     try {
       const { data } = await createTask({ variables: newItem });
-      if (data.createTask.subtasks.length != 0) {
-        console.log('hit');
+      if (data.createTask.subtasks.length !== 0) {
         const sanitizedSubtasks = data.createTask.subtasks.map(
           ({ __typename, ...rest }) => rest
         );
         data.createTask.subtasks = sanitizedSubtasks;
       }
-      console.log('createTask', data.createTask);
       setTasks((prevTasks) => [...prevTasks, data.createTask]);
     } catch (error) {
       console.error(error.message);
@@ -82,7 +79,7 @@ export const TaskProvider = ({ children }) => {
   const [updateTask] = useMutation(UPDATE_TASK);
   const editTask = async (newData) => {
     try {
-      const { data } = await updateTask({ variables: newData });
+      await updateTask({ variables: newData });
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task.id === newData.id ? { ...task, ...newData } : task
@@ -97,7 +94,7 @@ export const TaskProvider = ({ children }) => {
   const [removeTask] = useMutation(DELETE_TASK);
   const deleteTask = async (id) => {
     try {
-      const { data } = await removeTask({ variables: { id: id } });
+      await removeTask({ variables: { id: id } });
       setTasks((list) => list.filter((item) => item.id !== id));
     } catch (error) {
       console.error(error.message);
@@ -110,7 +107,6 @@ export const TaskProvider = ({ children }) => {
       setLoadingState('success');
       const list = data.getTasks || [];
       const sanitizedList = sanitizeSubtasks(list);
-      console.log('sanitizedList', sanitizedList);
       setTasks(sanitizedList);
     } else if (error) {
       console.error(error.message);

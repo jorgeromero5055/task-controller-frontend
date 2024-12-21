@@ -23,13 +23,11 @@ const SignUp = () => {
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      const data = await newUser({
+      await newUser({
         variables: { lastActive: new Date().toISOString() },
       });
-      console.log('data', data);
       navigate('/');
     } catch (err) {
-      console.log('auth error', err.code);
       setError(signUpErrorMessageHandler(err.code));
     } finally {
       setLoading(false);

@@ -63,16 +63,6 @@ jest.mock('../utils/graphQl/users', () => ({
   CREATE_USER: ``,
 }));
 
-const mockLoadTasks = jest.fn();
-
-jest.mock('../contexts/TaskContext', () => ({
-  useTaskContext: () => {
-    return {
-      loadTasks: mockLoadTasks,
-    };
-  },
-}));
-
 jest.mock('@apollo/client', () => {
   return {
     useMutation: () => [jest.fn()],
@@ -141,26 +131,25 @@ describe('Auth Flow', () => {
 
     it('login submits with success', async () => {
       renderLogIn();
-      await waitFor(async () => {
-        const emailField = screen.getByPlaceholderText('Enter your email');
-        fireEvent.change(emailField, { target: { value: 'test@email.com' } });
-        const passwordField = screen.getByPlaceholderText(
-          'Enter your password'
-        );
-        fireEvent.change(passwordField, { target: { value: '123456' } });
-        const loginButton = screen.getByText('Log in');
-        fireEvent.click(loginButton);
-      });
-      expect(signInWithEmailAndPassword).toHaveBeenCalledWith(
-        {
-          currentUser: { uid: 'test-user-id', email: 'test@example.com' },
-        },
-        'test@email.com',
-        '123456'
-      );
+      const emailField = screen.getByPlaceholderText('Enter your email');
+      fireEvent.change(emailField, { target: { value: 'test@email.com' } });
+      const passwordField = screen.getByPlaceholderText('Enter your password');
+      fireEvent.change(passwordField, { target: { value: '123456' } });
+      const loginButton = screen.getByText('Log in');
+      fireEvent.click(loginButton);
 
-      expect(mockLoadTasks).toHaveBeenCalled();
-      expect(returnUseNavigate).toHaveBeenCalledWith('/');
+      await waitFor(async () => {
+        expect(signInWithEmailAndPassword).toHaveBeenCalledWith(
+          {
+            currentUser: { uid: 'test-user-id', email: 'test@example.com' },
+          },
+          'test@email.com',
+          '123456'
+        );
+      });
+      await waitFor(async () => {
+        expect(returnUseNavigate).toHaveBeenCalledWith('/');
+      });
     });
 
     it('login submits with faliure', async () => {
@@ -168,26 +157,23 @@ describe('Auth Flow', () => {
         new Error('Login failed')
       );
       renderLogIn();
+
+      const emailField = screen.getByPlaceholderText('Enter your email');
+      fireEvent.change(emailField, { target: { value: 'test@email.com' } });
+      const passwordField = screen.getByPlaceholderText('Enter your password');
+      fireEvent.change(passwordField, { target: { value: '123456' } });
+      const loginButton = screen.getByText('Log in');
+      fireEvent.click(loginButton);
+
       await waitFor(async () => {
-        const emailField = screen.getByPlaceholderText('Enter your email');
-        fireEvent.change(emailField, { target: { value: 'test@email.com' } });
-        const passwordField = screen.getByPlaceholderText(
-          'Enter your password'
+        expect(signInWithEmailAndPassword).toHaveBeenCalledWith(
+          {
+            currentUser: { uid: 'test-user-id', email: 'test@example.com' },
+          },
+          'test@email.com',
+          '123456'
         );
-        fireEvent.change(passwordField, { target: { value: '123456' } });
-        const loginButton = screen.getByText('Log in');
-        fireEvent.click(loginButton);
       });
-      expect(signInWithEmailAndPassword).toHaveBeenCalledWith(
-        {
-          currentUser: { uid: 'test-user-id', email: 'test@example.com' },
-        },
-        'test@email.com',
-        '123456'
-      );
-
-      expect(mockLoadTasks).not.toHaveBeenCalled();
-
       await waitFor(async () => {
         expect(
           screen.getByText(
@@ -210,48 +196,50 @@ describe('Auth Flow', () => {
 
     it('signup submits with success', async () => {
       renderSignup();
+      const emailField = screen.getByPlaceholderText('Add your email');
+      fireEvent.change(emailField, { target: { value: 'test@email.com' } });
+      const passwordField = screen.getByPlaceholderText('Add your password');
+      fireEvent.change(passwordField, { target: { value: '123456' } });
+      const signUpButton = screen.getByText('Sign Up');
+      fireEvent.click(signUpButton);
       await waitFor(async () => {
-        const emailField = screen.getByPlaceholderText('Add your email');
-        fireEvent.change(emailField, { target: { value: 'test@email.com' } });
-        const passwordField = screen.getByPlaceholderText('Add your password');
-        fireEvent.change(passwordField, { target: { value: '123456' } });
-        const signUpButton = screen.getByText('Sign Up');
-        fireEvent.click(signUpButton);
+        expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
+          {
+            currentUser: { uid: 'test-user-id', email: 'test@example.com' },
+          },
+          'test@email.com',
+          '123456'
+        );
       });
-      expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
-        {
-          currentUser: { uid: 'test-user-id', email: 'test@example.com' },
-        },
-        'test@email.com',
-        '123456'
-      );
-      expect(returnUseNavigate).toHaveBeenCalledWith('/');
+      await waitFor(async () => {
+        expect(returnUseNavigate).toHaveBeenCalledWith('/');
+      });
     });
 
     it('signup submits with faliure', async () => {
       createUserWithEmailAndPassword.mockRejectedValueOnce(
         new Error('Sign Up failed')
       );
-
       renderSignup();
+      const emailField = screen.getByPlaceholderText('Add your email');
+      fireEvent.change(emailField, { target: { value: 'test@email.com' } });
+      const passwordField = screen.getByPlaceholderText('Add your password');
+      fireEvent.change(passwordField, { target: { value: '123456' } });
+      const signUpButton = screen.getByText('Sign Up');
+      fireEvent.click(signUpButton);
+
       await waitFor(async () => {
-        const emailField = screen.getByPlaceholderText('Add your email');
-        fireEvent.change(emailField, { target: { value: 'test@email.com' } });
-        const passwordField = screen.getByPlaceholderText('Add your password');
-        fireEvent.change(passwordField, { target: { value: '123456' } });
-        const signUpButton = screen.getByText('Sign Up');
-        fireEvent.click(signUpButton);
+        expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
+          {
+            currentUser: { uid: 'test-user-id', email: 'test@example.com' },
+          },
+          'test@email.com',
+          '123456'
+        );
       });
-
-      expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
-        {
-          currentUser: { uid: 'test-user-id', email: 'test@example.com' },
-        },
-        'test@email.com',
-        '123456'
-      );
-      expect(returnUseNavigate).not.toHaveBeenCalled();
-
+      await waitFor(async () => {
+        expect(returnUseNavigate).not.toHaveBeenCalled();
+      });
       await waitFor(async () => {
         expect(
           screen.getByText(
@@ -272,16 +260,18 @@ describe('Auth Flow', () => {
 
     it('forgot password submits with success', async () => {
       renderForgotPassword();
+
+      const emailField = screen.getByPlaceholderText('Enter your email');
+      fireEvent.change(emailField, { target: { value: 'test@email.com' } });
+      const sendInstructionsButton = screen.getByText('Send Instructions');
+      fireEvent.click(sendInstructionsButton);
+
       await waitFor(async () => {
-        const emailField = screen.getByPlaceholderText('Enter your email');
-        fireEvent.change(emailField, { target: { value: 'test@email.com' } });
-        const sendInstructionsButton = screen.getByText('Send Instructions');
-        fireEvent.click(sendInstructionsButton);
+        expect(sendPasswordResetEmail).toHaveBeenCalledWith(
+          { uid: 'test-user-id', email: 'test@example.com' },
+          'test@email.com'
+        );
       });
-      expect(sendPasswordResetEmail).toHaveBeenCalledWith(
-        { uid: 'test-user-id', email: 'test@example.com' },
-        'test@email.com'
-      );
     });
 
     it('forgot password submits with faliure', async () => {
@@ -290,17 +280,18 @@ describe('Auth Flow', () => {
       );
 
       renderForgotPassword();
-      await waitFor(async () => {
-        const emailField = screen.getByPlaceholderText('Enter your email');
-        fireEvent.change(emailField, { target: { value: 'test@email.com' } });
-        const sendInstructionsButton = screen.getByText('Send Instructions');
-        fireEvent.click(sendInstructionsButton);
-      });
 
-      expect(sendPasswordResetEmail).toHaveBeenCalledWith(
-        { uid: 'test-user-id', email: 'test@example.com' },
-        'test@email.com'
-      );
+      const emailField = screen.getByPlaceholderText('Enter your email');
+      fireEvent.change(emailField, { target: { value: 'test@email.com' } });
+      const sendInstructionsButton = screen.getByText('Send Instructions');
+      fireEvent.click(sendInstructionsButton);
+
+      await waitFor(async () => {
+        expect(sendPasswordResetEmail).toHaveBeenCalledWith(
+          { uid: 'test-user-id', email: 'test@example.com' },
+          'test@email.com'
+        );
+      });
 
       await waitFor(async () => {
         expect(
@@ -324,26 +315,30 @@ describe('Auth Flow', () => {
       delete window.location;
       window.location = { href: '' };
       renderPasswordReset();
-      await waitFor(async () => {
-        const newPasswordField = screen.getByPlaceholderText(
-          'Create your new password'
-        );
-        fireEvent.change(newPasswordField, { target: { value: '123456' } });
 
-        const confirmPassword = screen.getByPlaceholderText(
-          'Confirm your new password'
-        );
-        fireEvent.change(confirmPassword, { target: { value: '123456' } });
-
-        const ResetPassword = screen.getByText('Reset Password');
-        fireEvent.click(ResetPassword);
-      });
-      expect(confirmPasswordReset).toHaveBeenCalledWith(
-        { uid: 'test-user-id', email: 'test@example.com' },
-        'oobCode',
-        '123456'
+      const newPasswordField = screen.getByPlaceholderText(
+        'Create your new password'
       );
-      expect(window.location.href).toBe('/login?success=passwordReset');
+      fireEvent.change(newPasswordField, { target: { value: '123456' } });
+
+      const confirmPassword = screen.getByPlaceholderText(
+        'Confirm your new password'
+      );
+      fireEvent.change(confirmPassword, { target: { value: '123456' } });
+
+      const ResetPassword = screen.getByText('Reset Password');
+      fireEvent.click(ResetPassword);
+
+      await waitFor(async () => {
+        expect(confirmPasswordReset).toHaveBeenCalledWith(
+          { uid: 'test-user-id', email: 'test@example.com' },
+          'oobCode',
+          '123456'
+        );
+      });
+      await waitFor(async () => {
+        expect(window.location.href).toBe('/login?success=passwordReset');
+      });
     });
 
     it('password reset submits with faliure', async () => {
@@ -354,29 +349,30 @@ describe('Auth Flow', () => {
       window.location = { href: '' };
 
       renderPasswordReset();
-      await waitFor(async () => {
-        const newPasswordField = screen.getByPlaceholderText(
-          'Create your new password'
-        );
-        fireEvent.change(newPasswordField, { target: { value: '123456' } });
 
-        const confirmPassword = screen.getByPlaceholderText(
-          'Confirm your new password'
-        );
-        fireEvent.change(confirmPassword, { target: { value: '123456' } });
-
-        const ResetPassword = screen.getByText('Reset Password');
-        fireEvent.click(ResetPassword);
-      });
-
-      expect(confirmPasswordReset).toHaveBeenCalledWith(
-        { uid: 'test-user-id', email: 'test@example.com' },
-        'oobCode',
-        '123456'
+      const newPasswordField = screen.getByPlaceholderText(
+        'Create your new password'
       );
+      fireEvent.change(newPasswordField, { target: { value: '123456' } });
 
-      expect(window.location.href).toBe('');
+      const confirmPassword = screen.getByPlaceholderText(
+        'Confirm your new password'
+      );
+      fireEvent.change(confirmPassword, { target: { value: '123456' } });
 
+      const ResetPassword = screen.getByText('Reset Password');
+      fireEvent.click(ResetPassword);
+
+      await waitFor(async () => {
+        expect(confirmPasswordReset).toHaveBeenCalledWith(
+          { uid: 'test-user-id', email: 'test@example.com' },
+          'oobCode',
+          '123456'
+        );
+      });
+      await waitFor(async () => {
+        expect(window.location.href).toBe('');
+      });
       await waitFor(async () => {
         expect(
           screen.getByText(
@@ -395,12 +391,14 @@ describe('Auth Flow', () => {
           { uid: 'test-user-id', email: 'test@example.com' },
           'oobCode'
         );
-
+      });
+      await waitFor(async () => {
         expect(applyActionCode).toHaveBeenCalledWith(
           { uid: 'test-user-id', email: 'test@example.com' },
           'oobCode'
         );
-
+      });
+      await waitFor(async () => {
         expect(
           screen.getByText(
             'Your email recovery was successful. Your previous email address was an unknown email.'
@@ -417,9 +415,11 @@ describe('Auth Flow', () => {
           { uid: 'test-user-id', email: 'test@example.com' },
           'oobCode'
         );
-
+      });
+      await waitFor(async () => {
         expect(applyActionCode).not.toHaveBeenCalled();
-
+      });
+      await waitFor(async () => {
         expect(
           screen.getByText(
             'An error occurred while processing your request. Please try again later.'

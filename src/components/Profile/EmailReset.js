@@ -16,7 +16,6 @@ const ResetEmail = ({ user }) => {
   const submitHandler = async (e) => {
     setLoading(true);
     try {
-      // Step 1: Reauthenticate the user
       const credential = EmailAuthProvider.credential(
         user.email,
         currentPassword

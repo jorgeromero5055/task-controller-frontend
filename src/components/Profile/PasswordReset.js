@@ -58,7 +58,6 @@ const ResetPassword = ({ user }) => {
         },
         field3: {
           type: 'password',
-          placeholder: 'Enter your new password',
           placeholder: 'Confirm your new password',
           title: 'Confirm Password',
           value: confirmPassword,

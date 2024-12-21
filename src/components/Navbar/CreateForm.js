@@ -54,7 +54,6 @@ const TaskForm = ({ setVisibleSection }) => {
       });
       setVisibleSection('form');
     } catch (error) {
-      console.log('submit hit with err', error.message + ' please try again');
       setError(error.message + ' please try again');
     }
   };
