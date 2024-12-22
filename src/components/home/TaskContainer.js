@@ -4,7 +4,13 @@ import { isInRange, isSameDay, isSameOrBeforeDay } from '../../utils/helpers';
 import TaskList from './TaskList';
 import styles from '../../styles/TaskList.module.css';
 
-const priorityOrder = { none: 0, Low: 1, Medium: 2, Top: 3 };
+// const priorityOrder = { none: 0, Low: 1, Medium: 2, Top: 3 };
+const priorityOrder = {
+  'No Priority': 0,
+  'Low Priority': 1,
+  'Moderate Priority': 2,
+  'High Priority': 3,
+};
 
 const sortDate = (list, direction) => {
   return [...list].sort((a, b) => {

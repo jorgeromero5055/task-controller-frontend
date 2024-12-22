@@ -35,4 +35,11 @@ export const options = ['Alphabetical', 'Date', 'Priority'];
 
 export const dateOptions = ['All Time', 'Custom'];
 
+export const prioritySelectionList = [
+  'No Priority',
+  'Low Priority',
+  'Moderate Priority',
+  'High Priority',
+];
+
 export const colors = { primry: '#597dff', secondary: '#597dff5f' };

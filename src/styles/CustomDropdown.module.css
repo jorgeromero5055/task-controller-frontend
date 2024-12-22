@@ -55,6 +55,7 @@
   background-color: #fff;
   border-radius: 4px;
   font-family: var(--text-font-family);
+  color: rgb(103, 103, 103);
 }
 
 .selectedOption {

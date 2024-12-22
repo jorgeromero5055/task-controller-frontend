@@ -7,7 +7,9 @@ import CustomDropdown from '../Reusable/CustomDropdown';
 import { IoIosAdd } from 'react-icons/io';
 import styles from '../../styles/CreateFrom.module.css';
 import ErrorField from '../Reusable/ErrorField';
-const options = ['none', 'Low', 'Medium', 'Top'];
+import { prioritySelectionList } from '../../utils/Constants';
+
+// const options = ['none', 'Low', 'Medium', 'Top'];
 
 const TaskForm = ({ setVisibleSection }) => {
   const { addTask } = useTaskContext();
@@ -15,7 +17,7 @@ const TaskForm = ({ setVisibleSection }) => {
     name: '',
     date: '',
     description: '',
-    priority: 'none',
+    priority: 'No Priority',
     subtasks: [],
   });
   const [error, setError] = useState(false);
@@ -152,7 +154,7 @@ const TaskForm = ({ setVisibleSection }) => {
               ref={priorityOptions}
             >
               <CustomDropdown
-                options={options}
+                options={prioritySelectionList}
                 selectedOption={formData.priority}
                 setSelectedOption={prioritySetHandler}
                 toggle={toggle}

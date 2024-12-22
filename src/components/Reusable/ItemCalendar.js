@@ -9,7 +9,13 @@ import styles from '../../styles/ItemCalendar.module.css';
 
 import { LuCalendar } from 'react-icons/lu';
 
-const ItemCalendar = ({ itemDate, selectionHandler, toggle, setToggle }) => {
+const ItemCalendar = ({
+  itemDate,
+  selectionHandler,
+  toggle,
+  setToggle,
+  backgroundColor,
+}) => {
   const [selectedDates, setSelectedDates] = useState(
     itemDate ? new Date(itemDate) : null
   );
@@ -167,7 +173,10 @@ const ItemCalendar = ({ itemDate, selectionHandler, toggle, setToggle }) => {
         <LuCalendar className={styles.calendarIcon} />
       </div>
       {toggle === 'calendar' && (
-        <div className={styles.dateRangePicker}>
+        <div
+          className={styles.dateRangePicker}
+          style={{ backgroundColor: `${backgroundColor}` }}
+        >
           <div className={styles.header}>
             <button
               className={styles.arrowButton}

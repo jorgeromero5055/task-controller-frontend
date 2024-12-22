@@ -9,8 +9,8 @@ import { IoIosAdd, IoMdTrash } from 'react-icons/io';
 import { IoEllipsisVertical } from 'react-icons/io5';
 import styles from '../../styles/TaskItem.module.css';
 import ErrorField from '../Reusable/ErrorField';
-
-const options = ['none', 'Low', 'Medium', 'Top'];
+import { prioritySelectionList } from '../../utils/Constants';
+// const options = ['none', 'Low', 'Medium', 'Top'];
 
 const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
   const { editTask, deleteTask, windowSize } = useTaskContext();
@@ -229,7 +229,7 @@ const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
             ref={priorityOptions}
           >
             <CustomDropdown
-              options={options}
+              options={prioritySelectionList}
               selectedOption={selectedItem.priority}
               setSelectedOption={prioritySetHandler}
               toggle={toggle}

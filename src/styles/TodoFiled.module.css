@@ -38,10 +38,10 @@
   border-radius: 0;
   box-sizing: border-box;
   color: var(--text-color);
+  background-color: transparent;
 }
 
 .deleteButton {
-  background-color: #fff;
   border: none;
   padding: 0;
   margin: 0;

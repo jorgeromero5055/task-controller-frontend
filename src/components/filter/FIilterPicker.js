@@ -90,9 +90,6 @@ const ViewOptions = ({ filterModule, filterBlurHandler }) => {
         {openFilter === 'main' && (
           <div className={styles.mainContainer}>
             <div className={styles.mainList}>
-              {/* <div className={styles.header}>
-                <p className={styles.title}>View Options</p>
-              </div> */}
               <div className={styles.sortByButton} onClick={resetToDefault}>
                 <div className={styles.sortByText}>
                   <span className={styles.defaultIcon}>

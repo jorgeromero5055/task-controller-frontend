@@ -307,7 +307,7 @@ const TaskList = ({
                                 !task.name || task.completed ? '#888' : '#000',
                             }}
                           >
-                            {!task.name ? 'No Title' : task.name}
+                            {!task.name ? 'No Name' : task.name}
                           </p>
                         </div>
 
@@ -329,10 +329,15 @@ const TaskList = ({
                           <p
                             className={styles.taskDescription}
                             style={{
-                              color: task.completed ? '#888' : '#000',
+                              color:
+                                !task.description || task.completed
+                                  ? '#888'
+                                  : '#000',
                             }}
                           >
-                            {task.description}
+                            {!task.description
+                              ? 'No Description'
+                              : task.description}
                           </p>
                         )}
                         {/* Priority */}
@@ -340,10 +345,14 @@ const TaskList = ({
                           <p
                             className={styles.taskPriority}
                             style={{
-                              color: task.completed ? '#888' : '#000',
+                              color:
+                                task.priority === 'No Priority' ||
+                                task.completed
+                                  ? '#888'
+                                  : '#000',
                             }}
                           >
-                            {task.priority} Priority
+                            {task.priority}
                           </p>
                         )}
                       </div>
