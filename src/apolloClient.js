@@ -7,8 +7,8 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { auth } from './firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-
-const httpLink = new HttpLink({ uri: 'http://192.168.1.153:4000/graphql' });
+import { backendUrl } from './utils/Constants';
+const httpLink = new HttpLink({ uri: `${backendUrl}` });
 
 const getToken = () =>
   new Promise((resolve, reject) => {
@@ -37,11 +37,9 @@ const authLink = setContext(async (_, { headers }) => {
         },
       };
     } else {
-      console.error('No token available.');
       return { headers };
     }
   } catch (error) {
-    console.error('Error fetching token:', error);
     return { headers };
   }
 });

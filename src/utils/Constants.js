@@ -43,3 +43,5 @@ export const prioritySelectionList = [
 ];
 
 export const colors = { primry: '#597dff', secondary: '#597dff5f' };
+
+export let backendUrl = 'http://192.168.1.153:4000/graphql';
