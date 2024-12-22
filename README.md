@@ -67,7 +67,7 @@ Without these fields, the app cannot connect to Firebase for authentication.
    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
    REACT_APP_FIREBASE_APP_ID=your-firebase-app-id
 
-Note: Without these fields, the app cannot connect to Firebase for authentication.
+   Note: Without these fields, the app cannot connect to Firebase for authentication.
 
 3. Navigate to the project directory:
    cd task-controller-frontend
@@ -77,3 +77,9 @@ Note: Without these fields, the app cannot connect to Firebase for authenticatio
 
 5. Clone the repository:
    npm start
+
+## Backend
+
+The app requires a separate backend server to function. The backend handles all GraphQL queries and mutations. Refer to the backend repository for more details.
+
+[Backend Repository Link](https://github.com/jorgeromero5055/task-controller-backend)
