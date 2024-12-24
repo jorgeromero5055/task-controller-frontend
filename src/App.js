@@ -8,6 +8,7 @@ import EmailRecovery from './Pages/EmailRecovery';
 import LogIn from './Pages/LogIn';
 import SignUp from './Pages/SignUp';
 import NotFound from './Pages/NotFound';
+import Loading from './Pages/Loading';
 
 function App() {
   return (

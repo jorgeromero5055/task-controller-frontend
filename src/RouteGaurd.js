@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ACTIVE_USER } from './utils/graphQl/users';
+import Loading from './Pages/Loading';
 
 const RouteGuard = ({ children }) => {
   const { data, loading, error } = useQuery(ACTIVE_USER);
@@ -32,7 +33,7 @@ const RouteGuard = ({ children }) => {
     // eslint-disable-next-line
   }, [loading, data, error]);
 
-  if (loading) return <></>;
+  if (loading) return <Loading />;
 
   return children;
 };
