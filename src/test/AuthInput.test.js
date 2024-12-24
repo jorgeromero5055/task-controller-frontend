@@ -1,4 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+
 import ProfileOptions from '../components/Reusable/ProfileOptions';
 
 const mockSetField1Value = jest.fn();

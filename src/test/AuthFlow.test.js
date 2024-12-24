@@ -1,4 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+
 import LogIn from '../Pages/LogIn';
 import Signup from '../Pages/SignUp';
 import PasswordReset from '../Pages/PasswordReset';

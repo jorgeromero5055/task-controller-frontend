@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import ResetPassword from '../components/Profile/PasswordReset';
 import ResetEmail from '../components/Profile/EmailReset';
 import DeleteAccount from '../components/Profile/DeleteAccount';

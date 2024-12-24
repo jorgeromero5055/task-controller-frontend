@@ -1,6 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import TaskContainer from '../components/home/TaskContainer';
 import { daysAgo } from '../utils/helpers';
 
@@ -12,7 +13,7 @@ const defaultMockItems = [
     id: '674f82edf177f2aeb316eb02',
     name: 'test name upcoming 2',
     overdue: false,
-    priority: 'none',
+    priority: 'No Priority',
     subtasks: [{ checked: false, id: '2024-12-04T12:00:59.367Z', text: '' }],
   },
   {
@@ -24,7 +25,7 @@ const defaultMockItems = [
     id: '674f82edf177f2aeb316eb06',
     name: 'test name overdue 2',
     overdue: true,
-    priority: 'none',
+    priority: 'No Priority',
     subtasks: [{ checked: false, id: '2024-12-04T12:00:59.367Z', text: '' }],
   },
   {
@@ -36,7 +37,7 @@ const defaultMockItems = [
     id: '674f82edf177f2aeb316eb04',
     name: 'test name completed 2',
     overdue: false,
-    priority: 'none',
+    priority: 'No Priority',
     subtasks: [{ checked: false, id: '2024-12-04T12:00:59.367Z', text: '' }],
   },
   {
@@ -46,7 +47,7 @@ const defaultMockItems = [
     id: '674f82edf177f2aeb316eb01',
     name: 'test name upcoming 1',
     overdue: false,
-    priority: 'Low',
+    priority: 'Low Priority',
     subtasks: [{ checked: false, id: '2024-12-04T12:00:59.367Z', text: '' }],
   },
   {
@@ -58,7 +59,7 @@ const defaultMockItems = [
     id: '674f82edf177f2aeb316eb05',
     name: 'test name overdue 1',
     overdue: true,
-    priority: 'Medium',
+    priority: 'Moderate Priority',
     subtasks: [{ checked: false, id: '2024-12-04T12:00:59.367Z', text: '' }],
   },
   {
@@ -68,7 +69,7 @@ const defaultMockItems = [
     id: '674f82edf177f2aeb316eb03',
     name: 'test name completed 1',
     overdue: false,
-    priority: 'Top',
+    priority: 'High Priority',
     subtasks: [{ checked: false, id: '2024-12-04T12:00:59.367Z', text: '' }],
   },
 ];
@@ -386,8 +387,8 @@ describe('TaskItem Component', () => {
       mockShownItems = { ...mockShownItems, priority: true };
       renderComponent();
       expect(screen.getByText('Low Priority')).toBeInTheDocument();
-      expect(screen.getByText('Medium Priority')).toBeInTheDocument();
-      expect(screen.getByText('Top Priority')).toBeInTheDocument();
+      expect(screen.getByText('Moderate Priority')).toBeInTheDocument();
+      expect(screen.getByText('High Priority')).toBeInTheDocument();
     });
   });
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import TaskForm from '../components/Navbar/CreateForm'; // Adjust the import path as needed
 import { formatSingleDateObject } from '../utils/helpers';
 
@@ -64,11 +64,11 @@ describe('TaskForm Component', () => {
       const priorityDropdown = screen.getByLabelText(/Priority/i);
       fireEvent.click(priorityDropdown);
 
-      const mediumOption = screen.getByText('Medium');
+      const mediumOption = screen.getByText('Moderate Priority');
       fireEvent.click(mediumOption);
 
       // Verify the selected option (this might need adjustment based on your dropdown implementation)
-      expect(screen.getByText('Medium')).toBeInTheDocument();
+      expect(screen.getByText('Moderate Priority')).toBeInTheDocument();
     });
 
     it('onBlur closes priority dropdown', async () => {
@@ -78,7 +78,7 @@ describe('TaskForm Component', () => {
 
       fireEvent.blur(priorityDropdown);
       await waitFor(() => {
-        expect(screen.queryByText('Medium')).not.toBeInTheDocument();
+        expect(screen.queryByText('Moderate Priority')).not.toBeInTheDocument();
       });
     });
 
@@ -245,7 +245,7 @@ describe('TaskForm Component', () => {
       const priorityDropdown = screen.getByLabelText(/Priority/i);
       fireEvent.click(priorityDropdown);
 
-      const mediumOption = screen.getByText('Medium');
+      const mediumOption = screen.getByText('Moderate Priority');
       fireEvent.click(mediumOption);
 
       const dateInput = screen.getByLabelText(/due date/i);
@@ -275,7 +275,7 @@ describe('TaskForm Component', () => {
         date: today.toLocaleDateString(),
         completed: false,
         overdue: false,
-        priority: 'Medium',
+        priority: 'Moderate Priority',
         subtasks: [
           expect.objectContaining({
             id: expect.stringMatching(
@@ -322,7 +322,7 @@ describe('TaskForm Component', () => {
       const priorityDropdown = screen.getByLabelText(/Priority/i);
       fireEvent.click(priorityDropdown);
 
-      const mediumOption = screen.getByText('Medium');
+      const mediumOption = screen.getByText('Moderate Priority');
       fireEvent.click(mediumOption);
 
       const dateInput = screen.getByLabelText(/due date/i);
@@ -353,7 +353,7 @@ describe('TaskForm Component', () => {
         date: yesterday.toLocaleDateString(),
         completed: false,
         overdue: true,
-        priority: 'Medium',
+        priority: 'Moderate Priority',
         subtasks: [
           expect.objectContaining({
             id: expect.stringMatching(
@@ -436,7 +436,7 @@ describe('TaskForm Component', () => {
       const priorityDropdown = screen.getByLabelText(/Priority/i);
       fireEvent.click(priorityDropdown);
 
-      const mediumOption = screen.getByText('Medium');
+      const mediumOption = screen.getByText('Moderate Priority');
       fireEvent.click(mediumOption);
 
       const dateInput = screen.getByLabelText(/due date/i);

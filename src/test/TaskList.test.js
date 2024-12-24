@@ -1,6 +1,6 @@
 import React from 'react';
-import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import TaskList from '../components/home/TaskList';
 
 let mockItem;
@@ -14,7 +14,7 @@ const defualtItem = {
   id: '674f82edf177f2aeb316eb01',
   name: 'test name 1',
   overdue: false,
-  priority: 'Medium',
+  priority: 'Moderate Priority',
   subtasks: [
     {
       id: '2024-12-04T14:26:41.185Z',
@@ -183,7 +183,7 @@ describe('TaskItem Component', () => {
       mockShownItems = { ...mockShownItems, priority: true };
       renderComponent();
 
-      expect(screen.getByText('Medium Priority')).toBeInTheDocument();
+      expect(screen.getByText('Moderate Priority')).toBeInTheDocument();
     });
 
     it('select item', async () => {

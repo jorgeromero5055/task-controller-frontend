@@ -1,6 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import TaskItem from '../components/home/TaskItem';
 
 const mockEditTask = jest.fn();
@@ -166,13 +167,13 @@ describe('TaskItem Component', () => {
       const priorityDropdown = screen.getByLabelText(/Priority/i);
       fireEvent.click(priorityDropdown);
 
-      const mediumOption = screen.getByText('Medium');
+      const mediumOption = screen.getByText('Moderate Priority');
       fireEvent.click(mediumOption);
 
       await waitFor(() => {
         expect(mockEditTask).toHaveBeenCalledWith({
           ...mockSelectedItem,
-          priority: 'Medium',
+          priority: 'Moderate Priority',
         });
       });
     });
