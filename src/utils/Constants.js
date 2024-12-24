@@ -44,4 +44,8 @@ export const prioritySelectionList = [
 
 export const colors = { primry: '#597dff', secondary: '#597dff5f' };
 
-export let backendUrl = 'http://192.168.1.153:4000/graphql';
+export const backendUrl =
+  'https://task-controller-backend.onrender.com/graphql';
+
+// export const backendUrl =
+//   'https://task-controller-backend-680924035215.us-east4.run.app/graphql';
