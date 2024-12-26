@@ -36,7 +36,7 @@ The **Task Controller App** is a powerful and intuitive application designed to 
 
 ## Live Demo
 
-A hosted version of the app is available at the following link: 
+A hosted version of the app is available at the following link:
 
 Note: The app may take up to 30 seconds to respond to a request if it has been inactive for more than 15 minutes. This delay is due to the backend being hosted on Render’s free tier, which incurs a server cold start when inactive for more than 15 minutes.
 
@@ -44,49 +44,38 @@ Note: The app may take up to 30 seconds to respond to a request if it has been i
 
 ---
 
-## Note
+## Setup Requirements
 
-To spin up this app locally, you will need the following valid Firebase fields in a `.env` file in the root of the project 
+To spin up this app locally, you'll need the following.
 
-REACT_APP_FIREBASE_API_KEY=your-firebase-api-key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your-firebase-auth-domain
-REACT_APP_FIREBASE_PROJECT_ID=your-firebase-project-id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your-firebase-storage-bucket
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
-REACT_APP_FIREBASE_APP_ID=your-firebase-app-id
+1. A Firebase Authentication account to add the following enviornment variables
 
-You will need to obtain these credentials from your Firebase account under Project Settings in the Firebase Console.
+REACT_APP_FIREBASE_API_KEY={ your-firebase-api-key }
+REACT_APP_FIREBASE_AUTH_DOMAIN={ your-firebase-auth-domain }
+REACT_APP_FIREBASE_PROJECT_ID={ your-firebase-project-id }
+REACT_APP_FIREBASE_STORAGE_BUCKET={ your-firebase-storage-bucket }
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID={ your-firebase-messaging-sender-id }
+REACT_APP_FIREBASE_APP_ID={ your-firebase-app-id }
 
-Yout will also need the following field in the `.env` to properly connect with the backend 
-
-backendUrl='https://task-controller-backend.onrender.com/graphql'
-
-Without these fields, the app cannot connect to Firebase for authentication.
+---
 
 ## How to Run Locally
 
 1. Clone the repository:
    git clone https://github.com/your-repo/task-controller-frontend.git
 
-2. Add a .env file to the root of the project with the following Firebase fields:
-   REACT_APP_FIREBASE_API_KEY=your-firebase-api-key
-   REACT_APP_FIREBASE_AUTH_DOMAIN=your-firebase-auth-domain
-   REACT_APP_FIREBASE_PROJECT_ID=your-firebase-project-id
-   REACT_APP_FIREBASE_STORAGE_BUCKET=your-firebase-storage-bucket
-   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
-   REACT_APP_FIREBASE_APP_ID=your-firebase-app-id
-   backendUrl='https://task-controller-backend.onrender.com/graphql'
+2. Add a .env file with the enviornment variables stated in the Setup Requirements above.
 
-   Note: Without these fields, the app cannot connect to Firebase for authentication or the backend.
-
-4. Navigate to the project directory:
+3. Navigate to the project directory:
    cd task-controller-frontend
 
-5. Clone the repository:
+4. Clone the repository:
    npm install
 
-6. Clone the repository:
+5. Clone the repository:
    npm start
+
+---
 
 ## Backend
 
