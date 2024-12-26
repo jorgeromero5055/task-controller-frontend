@@ -36,14 +36,15 @@ The **Task Controller App** is a powerful and intuitive application designed to 
 
 ## Live Demo
 
-A hosted version of the app is available at the following link:  
+A hosted version of the app is available at the following link: 
+Note: The app may take up to 30 seconds to respond to a request if it has been inactive for more than 15 minutes. This delay is due to the backend being hosted on Render’s free tier, which incurs a server cold start when inactive for more than 15 minutes.
 **[Live App Link](#)** _(Add your hosted link here)_
 
 ---
 
 ## Note
 
-This repository contains the frontend code only. To spin up this app locally, you will need the following valid Firebase fields in a `.env` file in the root of the project:
+To spin up this app locally, you will need the following valid Firebase fields in a `.env` file in the root of the project 
 
 REACT_APP_FIREBASE_API_KEY=your-firebase-api-key
 REACT_APP_FIREBASE_AUTH_DOMAIN=your-firebase-auth-domain
@@ -51,6 +52,12 @@ REACT_APP_FIREBASE_PROJECT_ID=your-firebase-project-id
 REACT_APP_FIREBASE_STORAGE_BUCKET=your-firebase-storage-bucket
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
 REACT_APP_FIREBASE_APP_ID=your-firebase-app-id
+
+You will need to obtain these credentials from your Firebase account under Project Settings in the Firebase Console.
+
+Yout will also need the following field in the `.env` to properly connect with the backend 
+
+backendUrl='https://task-controller-backend.onrender.com/graphql'
 
 Without these fields, the app cannot connect to Firebase for authentication.
 
@@ -66,16 +73,17 @@ Without these fields, the app cannot connect to Firebase for authentication.
    REACT_APP_FIREBASE_STORAGE_BUCKET=your-firebase-storage-bucket
    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
    REACT_APP_FIREBASE_APP_ID=your-firebase-app-id
+   backendUrl='https://task-controller-backend.onrender.com/graphql'
 
-   Note: Without these fields, the app cannot connect to Firebase for authentication.
+   Note: Without these fields, the app cannot connect to Firebase for authentication or the backend.
 
-3. Navigate to the project directory:
+4. Navigate to the project directory:
    cd task-controller-frontend
 
-4. Clone the repository:
+5. Clone the repository:
    npm install
 
-5. Clone the repository:
+6. Clone the repository:
    npm start
 
 ## Backend
