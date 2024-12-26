@@ -57,9 +57,9 @@ REACT_APP_FIREBASE_STORAGE_BUCKET={ your-firebase-storage-bucket }
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID={ your-firebase-messaging-sender-id }
 REACT_APP_FIREBASE_APP_ID={ your-firebase-app-id }
 
-2. Set the REACT_APP_BACKENDURL enviornment variable to https://task-controller-backend.onrender.com as seen below
+2. Set the REACT_APP_BACKENDURL enviornment variable to https://task-controller-backend.onrender.com/graphql as seen below
 
-REACT_APP_BACKENDURL=https://task-controller-backend.onrender.com
+REACT_APP_BACKENDURL=https://task-controller-backend.onrender.com/graphql
 
 ---
 
