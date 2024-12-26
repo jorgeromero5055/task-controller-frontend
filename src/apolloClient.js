@@ -7,8 +7,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { auth } from './firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-import { backendUrl } from './utils/Constants';
-const httpLink = new HttpLink({ uri: `${backendUrl}` });
+const httpLink = new HttpLink({ uri: `${process.env.backendUrl}` });
 
 const getToken = () =>
   new Promise((resolve, reject) => {
