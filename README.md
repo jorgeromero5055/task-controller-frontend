@@ -37,7 +37,9 @@ The **Task Controller App** is a powerful and intuitive application designed to 
 ## Live Demo
 
 A hosted version of the app is available at the following link: 
+
 Note: The app may take up to 30 seconds to respond to a request if it has been inactive for more than 15 minutes. This delay is due to the backend being hosted on Render’s free tier, which incurs a server cold start when inactive for more than 15 minutes.
+
 **[Live App Link](#)** _(Add your hosted link here)_
 
 ---
