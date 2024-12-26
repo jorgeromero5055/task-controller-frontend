@@ -3,8 +3,8 @@ import { useMemo, useState } from 'react';
 import { isInRange, isSameDay, isSameOrBeforeDay } from '../../utils/helpers';
 import TaskList from './TaskList';
 import styles from '../../styles/TaskList.module.css';
+import ErrorField from '../Reusable/ErrorField';
 
-// const priorityOrder = { none: 0, Low: 1, Medium: 2, Top: 3 };
 const priorityOrder = {
   'No Priority': 0,
   'Low Priority': 1,
@@ -193,8 +193,18 @@ const TaskContainer = ({ selectedItem, setSelectedItem, searchQuery }) => {
     // eslint-disable-next-line
   }, [tasks, listDate, sortOptions, searchQuery, shownItems.overdue]);
 
-  if (loadingState === 'loading') return <></>;
-  if (loadingState === 'error') <p>Error {loadingState.error.message}</p>;
+  if (loadingState === 'loading')
+    return (
+      <div className={styles.stateContainer}>
+        <div className={styles.spinner}></div>
+      </div>
+    );
+  if (loadingState === 'error')
+    return (
+      <div className={styles.stateContainer}>
+        <ErrorField error={loadingState.error.message} />
+      </div>
+    );
 
   return (
     <div>

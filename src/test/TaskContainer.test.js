@@ -5,6 +5,17 @@ import '@testing-library/jest-dom';
 import TaskContainer from '../components/home/TaskContainer';
 import { daysAgo } from '../utils/helpers';
 
+const returnUseNavigate = jest.fn();
+const useNavigateReturn = () => {
+  return returnUseNavigate;
+};
+
+jest.mock('react-router-dom', () => {
+  return {
+    useNavigate: useNavigateReturn,
+  };
+});
+
 const defaultMockItems = [
   {
     completed: false,

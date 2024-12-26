@@ -6,6 +6,7 @@ import {
 } from 'firebase/auth';
 import { getReauthenticateAndUpdatePasswordErrorMessage } from '../../utils/errMessage';
 import ProfileOptions from '../Reusable/ProfileOptions';
+import { useNavigate } from 'react-router-dom';
 
 const ResetPassword = ({ user }) => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -14,7 +15,7 @@ const ResetPassword = ({ user }) => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const submitHandler = async (e) => {
     setLoading(true);
     if (error) {
@@ -29,9 +30,13 @@ const ResetPassword = ({ user }) => {
       await updatePassword(user, newPassword);
       window.location.href = '/login?success=passwordReset';
     } catch (err) {
-      const userFriendlyMessage =
-        getReauthenticateAndUpdatePasswordErrorMessage(err.code);
-      setError(userFriendlyMessage);
+      if (error.message === 'Invalid User') {
+        navigate('/login');
+      } else {
+        const userFriendlyMessage =
+          getReauthenticateAndUpdatePasswordErrorMessage(err.code);
+        setError(userFriendlyMessage);
+      }
     } finally {
       setLoading(false);
     }

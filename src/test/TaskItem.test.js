@@ -4,6 +4,17 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TaskItem from '../components/home/TaskItem';
 
+const returnUseNavigate = jest.fn();
+const useNavigateReturn = () => {
+  return returnUseNavigate;
+};
+
+jest.mock('react-router-dom', () => {
+  return {
+    useNavigate: useNavigateReturn,
+  };
+});
+
 const mockEditTask = jest.fn();
 const mockDeleteTask = jest.fn();
 const mockSetSelectedItem = jest.fn();

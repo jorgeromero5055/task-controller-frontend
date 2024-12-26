@@ -4,6 +4,17 @@ import '@testing-library/jest-dom';
 import TaskForm from '../components/Navbar/CreateForm'; // Adjust the import path as needed
 import { formatSingleDateObject } from '../utils/helpers';
 
+const returnUseNavigate = jest.fn();
+const useNavigateReturn = () => {
+  return returnUseNavigate;
+};
+
+jest.mock('react-router-dom', () => {
+  return {
+    useNavigate: useNavigateReturn,
+  };
+});
+
 const mockAddTask = jest.fn();
 
 jest.mock('../contexts/TaskContext', () => ({

@@ -3,6 +3,17 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TaskList from '../components/home/TaskList';
 
+const returnUseNavigate = jest.fn();
+const useNavigateReturn = () => {
+  return returnUseNavigate;
+};
+
+jest.mock('react-router-dom', () => {
+  return {
+    useNavigate: useNavigateReturn,
+  };
+});
+
 let mockItem;
 let mockShownItems;
 let mockSelectedItem;

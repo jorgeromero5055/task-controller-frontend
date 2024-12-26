@@ -8,6 +8,7 @@ import { IoIosAdd } from 'react-icons/io';
 import styles from '../../styles/CreateFrom.module.css';
 import ErrorField from '../Reusable/ErrorField';
 import { prioritySelectionList } from '../../utils/Constants';
+import { useNavigate } from 'react-router-dom';
 
 const TaskForm = ({ setVisibleSection }) => {
   const { addTask } = useTaskContext();
@@ -18,6 +19,7 @@ const TaskForm = ({ setVisibleSection }) => {
     priority: 'No Priority',
     subtasks: [],
   });
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -57,7 +59,11 @@ const TaskForm = ({ setVisibleSection }) => {
       });
       setVisibleSection('form');
     } catch (error) {
-      setError(error.message + ' please try again');
+      if (error.message === 'Invalid User') {
+        navigate('/login');
+      } else {
+        setError(error.message + ' please try again');
+      }
     } finally {
       setLoading(false);
     }

@@ -140,3 +140,14 @@ export const daysAgo = (direction, days) => {
   date.setDate(date.getDate() + direction * days);
   return date;
 };
+
+export const isAuthPath = () => {
+  const authPaths = [
+    'login',
+    'signup',
+    'reset-password',
+    'forgot-password',
+    'email-recovery',
+  ];
+  return authPaths.some((path) => window.location.href.includes(path));
+};

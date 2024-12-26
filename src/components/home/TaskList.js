@@ -8,6 +8,7 @@ import { IoMdTrash } from 'react-icons/io';
 import styles from '../../styles/TaskList.module.css';
 import { colors } from '../../utils/Constants';
 import ErrorField from '../Reusable/ErrorField';
+import { useNavigate } from 'react-router-dom';
 
 const TaskList = ({
   list,
@@ -27,7 +28,7 @@ const TaskList = ({
     id: null,
     message: null,
   });
-
+  const navigate = useNavigate();
   const toggleVisibility = () => {
     setIsOpen((prev) => !prev);
   };
@@ -54,7 +55,11 @@ const TaskList = ({
         setSelectedItem({ ...updatedTask });
       }
     } catch (error) {
-      setError({ id: task.id, message: error.message + ' please try again' });
+      if (error.message === 'Invalid User') {
+        navigate('/login');
+      } else {
+        setError({ id: task.id, message: error.message + ' please try again' });
+      }
     }
   };
 
@@ -72,7 +77,11 @@ const TaskList = ({
       }
       setToggle(null);
     } catch (error) {
-      setError({ id: id, message: error.message + ' please try again' });
+      if (error.message === 'Invalid User') {
+        navigate('/login');
+      } else {
+        setError({ id: id, message: error.message + ' please try again' });
+      }
     }
   };
 

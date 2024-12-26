@@ -10,10 +10,12 @@ import { IoEllipsisVertical } from 'react-icons/io5';
 import styles from '../../styles/TaskItem.module.css';
 import ErrorField from '../Reusable/ErrorField';
 import { prioritySelectionList } from '../../utils/Constants';
+import { useNavigate } from 'react-router-dom';
 
 const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
   const { editTask, deleteTask, windowSize } = useTaskContext();
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const handleChnage = async (e) => {
     if (error) {
@@ -48,7 +50,11 @@ const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
       await editTask(newItem);
       setSelectedItem(newItem);
     } catch (error) {
-      setError(error.message + ' please try again');
+      if (error.message === 'Invalid User') {
+        navigate('/login');
+      } else {
+        setError(error.message + ' please try again');
+      }
     }
   };
 
@@ -60,7 +66,11 @@ const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
       await deleteTask(selectedItem.id);
       setSelectedItem(null);
     } catch (error) {
-      setError(error.message + ' please try again');
+      if (error.message === 'Invalid User') {
+        navigate('/login');
+      } else {
+        setError(error.message + ' please try again');
+      }
     }
   };
 

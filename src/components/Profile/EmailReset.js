@@ -6,13 +6,14 @@ import {
 } from 'firebase/auth';
 import { getEmailResetErrorMessage } from '../../utils/errMessage';
 import ProfileOptions from '../Reusable/ProfileOptions';
+import { useNavigate } from 'react-router-dom';
 
 const ResetEmail = ({ user }) => {
   const [newEmail, setNewEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const submitHandler = async (e) => {
     setLoading(true);
     if (error) {
@@ -28,8 +29,12 @@ const ResetEmail = ({ user }) => {
       await updateEmail(user, newEmail);
       window.location.href = '/login?success=emailReset';
     } catch (err) {
-      const userFriendlyMessage = getEmailResetErrorMessage(err.code);
-      setError(userFriendlyMessage);
+      if (error.message === 'Invalid User') {
+        navigate('/login');
+      } else {
+        const userFriendlyMessage = getEmailResetErrorMessage(err.code);
+        setError(userFriendlyMessage);
+      }
     } finally {
       setLoading(false);
     }

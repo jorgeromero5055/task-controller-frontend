@@ -1,39 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ACTIVE_USER } from './utils/graphQl/users';
-import Loading from './Pages/Loading';
+import PageContainer from './components/Reusable/PageContainer';
+import styles from './styles/RouteGuard.module.css'; // Import the CSS Module
+import ErrorField from './components/Reusable/ErrorField';
+import { isAuthPath } from './utils/helpers';
 
 const RouteGuard = ({ children }) => {
   const { data, loading, error } = useQuery(ACTIVE_USER);
+  const [errorState, setErrorState] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
+    console.log('data', data);
     if (!loading) {
-      const currentPath = location.pathname;
-      const isAuthPath =
-        currentPath === '/login' ||
-        currentPath === '/signup' ||
-        currentPath === '/reset-password' ||
-        currentPath === '/forgot-password';
-
-      const isSame = currentPath === '/email-recovery';
-
       if (error) {
-        if (!isAuthPath && !isSame) {
-          navigate('/login');
+        if (error.message === 'Invalid User') {
+          if (!isAuthPath()) {
+            navigate('/login');
+          }
+        } else {
+          setErrorState(error.message);
         }
-      } else {
-        if (isAuthPath) {
-          navigate('/');
-        }
+      } else if (!error && isAuthPath()) {
+        navigate('/');
       }
     }
     // eslint-disable-next-line
   }, [loading, data, error]);
 
-  if (loading) return <Loading />;
+  if (loading)
+    return (
+      <PageContainer>{<div className={styles.spinner}></div>}</PageContainer>
+    );
+  if (errorState)
+    return (
+      <PageContainer>
+        {<ErrorField error={errorState + ' Please try again'} />}
+      </PageContainer>
+    );
 
   return children;
 };

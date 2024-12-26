@@ -8,6 +8,7 @@ import { useMutation } from '@apollo/client';
 import { DELETE_USER } from '../../utils/graphQl/users';
 import { getDeletionErrorMessage } from '../../utils/errMessage';
 import ProfileOptions from '../Reusable/ProfileOptions';
+import { useNavigate } from 'react-router-dom';
 
 const DeleteAccount = ({ user }) => {
   const [password, setPassword] = useState('');
@@ -15,6 +16,7 @@ const DeleteAccount = ({ user }) => {
   const [error, setError] = useState('');
 
   const [removeUser] = useMutation(DELETE_USER);
+  const navigate = useNavigate();
 
   const handleDelete = async () => {
     setLoading(true);
@@ -33,8 +35,12 @@ const DeleteAccount = ({ user }) => {
 
       window.location.href = '/signup'; // Redirect to homepage or login page
     } catch (err) {
-      const userFriendlyMessage = getDeletionErrorMessage(err.code);
-      setError(userFriendlyMessage);
+      if (error.message === 'Invalid User') {
+        navigate('/login');
+      } else {
+        const userFriendlyMessage = getDeletionErrorMessage(err.code);
+        setError(userFriendlyMessage);
+      }
     } finally {
       setLoading(false);
     }

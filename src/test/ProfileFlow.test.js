@@ -4,6 +4,17 @@ import ResetPassword from '../components/Profile/PasswordReset';
 import ResetEmail from '../components/Profile/EmailReset';
 import DeleteAccount from '../components/Profile/DeleteAccount';
 
+const returnUseNavigate = jest.fn();
+const useNavigateReturn = () => {
+  return returnUseNavigate;
+};
+
+jest.mock('react-router-dom', () => {
+  return {
+    useNavigate: useNavigateReturn,
+  };
+});
+
 const mockUser = { uid: 'test-user-id', email: 'test@email.com' };
 
 jest.mock('firebase/auth', () => {
