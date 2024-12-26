@@ -38,7 +38,7 @@ const RouteGuard = ({ children }) => {
     return (
       <PageContainer>
         {<ErrorField error={errorState + ' Please try again'} />}
-      </PageContainer> //
+      </PageContainer> ///
     );
 
   return children;
