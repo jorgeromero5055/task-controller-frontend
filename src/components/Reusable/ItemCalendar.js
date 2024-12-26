@@ -181,6 +181,7 @@ const ItemCalendar = ({
             <button
               className={styles.arrowButton}
               onClick={() => handleMonthChange(-1)}
+              type="button"
             >
               <FaChevronLeft className={styles.arrowIcon} />
             </button>
@@ -193,6 +194,7 @@ const ItemCalendar = ({
             <button
               className={styles.arrowButton}
               onClick={() => handleMonthChange(1)}
+              type="button"
             >
               <FaChevronRight className={styles.arrowIcon} />
             </button>
