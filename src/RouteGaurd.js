@@ -41,7 +41,7 @@ const RouteGuard = ({ children }) => {
       </PageContainer>
     );
 
-  return children;
+  return children; //
 };
 
 export default RouteGuard;
