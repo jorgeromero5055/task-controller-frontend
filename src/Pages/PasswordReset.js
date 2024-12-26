@@ -16,11 +16,13 @@ const PasswordReset = () => {
 
   const handleSubmit = async (e) => {
     setLoading(true);
+    if (error) {
+      setError('');
+    }
     if (!oobCode) {
       setError('Invalid password reset link.');
       return;
     }
-
     try {
       const auth = getAuth();
       await confirmPasswordReset(auth, oobCode, confirmPassword);

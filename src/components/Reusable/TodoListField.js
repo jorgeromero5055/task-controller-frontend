@@ -124,7 +124,6 @@ const ToDoField = ({ subTasks, handleSubTasks, style }) => {
               </li>
             ))}
           </ul>
-          {/* </div> */}
         </>
       )}
     </div>

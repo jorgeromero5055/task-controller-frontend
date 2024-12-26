@@ -251,7 +251,7 @@ const TaskList = ({
                     aria-label={`${
                       !task.name ? 'No Title' : task.name
                     } list item`}
-                    className={styles['list-item']}
+                    className={styles.listItem}
                     style={{
                       ...(task.id === selectedItem?.id
                         ? { border: `2px solid ${colors.secondary} ` }

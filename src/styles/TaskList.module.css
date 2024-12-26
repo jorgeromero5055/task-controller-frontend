@@ -5,7 +5,7 @@
   position: relative;
 }
 
-.list-item {
+.listItem {
   display: flex;
   flex: 1;
   border-radius: 8px;
@@ -13,6 +13,15 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
+}
+
+.listItem:hover .deleteButton {
+  opacity: 1; /* Show on hover */
+  transform: translateY(0); /* Slide up into view */
+}
+
+.listItem:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .list-content {
@@ -26,6 +35,7 @@
   cursor: pointer;
   position: relative;
   transition: left 0.5s ease-out; /* Smooth snapping */
+  box-sizing: border-box;
 
   width: 100%;
 }
@@ -46,15 +56,6 @@
 .deleteIcon {
   font-size: 1.2rem;
   color: white;
-}
-
-.list-item:hover .deleteButton {
-  opacity: 1; /* Show on hover */
-  transform: translateY(0); /* Slide up into view */
-}
-
-.list-item:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .ellipsis-icon {
@@ -161,6 +162,8 @@
   display: flex;
   justify-content: space-between; /* Align description and priority */
   margin-top: 5px;
+  flex: 1; /* Allow this row to fill the available space */
+  overflow: hidden; /* Prevent children from overflowing the container */
 }
 
 .taskDescription {

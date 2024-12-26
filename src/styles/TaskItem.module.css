@@ -33,7 +33,7 @@
   gap: 2rem;
   padding-top: 1rem;
   padding-left: 2rem;
-  margin-right: 1.5rem;
+  padding-right: 1.5rem;
   box-sizing: border-box;
   flex: 1; /* Take up remaining space */
   overflow-y: scroll; /* Enable vertical scrolling */
@@ -45,7 +45,8 @@
     /* padding-top: 1rem; */
     padding-bottom: 2rem;
     padding-left: 2rem;
-    margin-right: 2rem;
+    padding-right: 2rem;
+    /* margin-right: 2rem; */
   }
 }
 

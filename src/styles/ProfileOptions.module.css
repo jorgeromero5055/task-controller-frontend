@@ -29,7 +29,7 @@
   margin-bottom: 0.5rem;
 }
 
-.inputWrapper {
+/* .inputWrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -44,14 +44,34 @@
   outline: none;
   box-sizing: border-box;
   color: var(--text-color);
-  border: 2px solid var(--secondary-color); /* Border for normal state */
+  border: 2px solid var(--secondary-color); 
+} */
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--secondary-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.input {
+  flex: 1;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  color: var(--text-color);
 }
 
 .input::placeholder {
   color: var(--text-color);
 }
 
-.toggleButton {
+/* .toggleButton {
   position: absolute;
   right: 10px;
   top: 12px;
@@ -60,6 +80,15 @@
   color: #597dff;
   cursor: pointer;
   background-color: transparent;
+} */
+
+.toggleButton {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  top: 2px;
+  color: #597dff;
+  cursor: pointer;
 }
 
 .button {

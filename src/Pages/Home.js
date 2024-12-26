@@ -20,8 +20,8 @@ const Home = () => {
   };
   const { windowSize } = useTaskContext();
 
-  const rightPanelRef = useRef(null); // Ref for the right panel
-  const taskItemRef = useRef(null); // Ref for the right panel
+  const leftPanelRef = useRef(null);
+  const rightPanelRef = useRef(null);
 
   const handleDrag = (e) => {
     const newWidth = window.innerWidth - e.clientX; // Calculate new width for the right panel
@@ -30,12 +30,18 @@ const Home = () => {
       Math.min((newWidth / window.innerWidth) * 100, 50)
     );
 
+    if (leftPanelRef.current) {
+      leftPanelRef.current.style.width = `${100 - clampedWidthPercent}%`;
+    }
     if (rightPanelRef.current) {
       rightPanelRef.current.style.width = `${clampedWidthPercent}%`;
     }
-    if (taskItemRef.current) {
-      taskItemRef.current.style.width = `${clampedWidthPercent}%`;
-    }
+
+    console.log(
+      'clampedWidthPercent',
+      100 - clampedWidthPercent,
+      clampedWidthPercent
+    );
   };
 
   const handleMouseDown = (e) => {
@@ -66,6 +72,7 @@ const Home = () => {
               selectedItem ? styles.itemVisible : ''
             }`}
             style={{ height: `${windowSize.height - 80}px` }}
+            ref={leftPanelRef}
           >
             <div className={styles.searchBar}>
               <SearchContainer
@@ -78,7 +85,7 @@ const Home = () => {
             <div
               className={`${styles.scrollableList} ${styles.scrollable}`}
               style={{
-                marginRight: '1.5rem',
+                paddingRight: '1.5rem',
                 ...(visibleSection === 'form' || visibleSection === 'profile'
                   ? { overflow: 'hidden' }
                   : {}),
@@ -93,11 +100,7 @@ const Home = () => {
           </div>
 
           {/* Resizer */}
-          <div
-            className={styles.resizer}
-            style={{ height: '200vh' }}
-            onMouseDown={handleMouseDown}
-          />
+          <div className={styles.resizer} onMouseDown={handleMouseDown} />
 
           {/* Right Panel */}
           <div
@@ -109,7 +112,6 @@ const Home = () => {
           >
             {selectedItem ? (
               <TaskItem
-                taskItemRef={taskItemRef}
                 selectedItem={selectedItem}
                 setSelectedItem={setSelectedItem}
                 visibleSection={visibleSection}

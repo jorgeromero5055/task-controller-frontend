@@ -18,7 +18,9 @@ const DeleteAccount = ({ user }) => {
 
   const handleDelete = async () => {
     setLoading(true);
-    setError('');
+    if (error) {
+      setError('');
+    }
     try {
       // Reauthenticate the user with their password
       const credential = EmailAuthProvider.credential(user.email, password);

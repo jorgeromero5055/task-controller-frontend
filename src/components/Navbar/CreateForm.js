@@ -9,8 +9,6 @@ import styles from '../../styles/CreateFrom.module.css';
 import ErrorField from '../Reusable/ErrorField';
 import { prioritySelectionList } from '../../utils/Constants';
 
-// const options = ['none', 'Low', 'Medium', 'Top'];
-
 const TaskForm = ({ setVisibleSection }) => {
   const { addTask } = useTaskContext();
   const [formData, setFormData] = useState({
@@ -20,6 +18,8 @@ const TaskForm = ({ setVisibleSection }) => {
     priority: 'No Priority',
     subtasks: [],
   });
+
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const handleChange = (e) => {
@@ -32,6 +32,7 @@ const TaskForm = ({ setVisibleSection }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (error) {
       setError(false);
     }
@@ -57,6 +58,8 @@ const TaskForm = ({ setVisibleSection }) => {
       setVisibleSection('form');
     } catch (error) {
       setError(error.message + ' please try again');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -110,9 +113,6 @@ const TaskForm = ({ setVisibleSection }) => {
   return (
     <div
       className={`${styles.overlay} ${styles.scrollable}`}
-      // style={{
-      //   height: `${window.innerHeight}px`,
-      // }}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           setVisibleSection('form');
@@ -215,7 +215,7 @@ const TaskForm = ({ setVisibleSection }) => {
               type="submit"
               className={styles.formButton}
             >
-              Create
+              {loading ? 'Loading ...' : 'Create'}
             </button>
           </div>
           {error && <ErrorField error={error} />}

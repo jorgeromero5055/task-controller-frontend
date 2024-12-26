@@ -21,6 +21,9 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     setLoading(true);
+    if (error) {
+      setError('');
+    }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       await newUser({

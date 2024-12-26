@@ -14,6 +14,9 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     setLoading(true);
+    if (error) {
+      setError('');
+    }
     const auth = getAuth();
 
     try {

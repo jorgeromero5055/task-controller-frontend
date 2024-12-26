@@ -25,6 +25,9 @@ const LogIn = () => {
 
   const handleSubmit = async (e) => {
     setLoading(true);
+    if (error) {
+      setError('');
+    }
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/');

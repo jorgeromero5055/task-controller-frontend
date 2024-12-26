@@ -1,11 +1,5 @@
 .relative {
   position: relative;
-  /* margin-top: 4px; */
-  /* margin-left: 1rem;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: gray whitesmoke;
-  border-radius: 8px; */
 }
 
 .filterContainer {
@@ -20,11 +14,6 @@
   width: 100%;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
-  /* 
-  padding-top: 12px; 
-  width: 100%;
-  padding-left: 16px;
-  padding-right: 16px;   */
 }
 
 .mainContainer {

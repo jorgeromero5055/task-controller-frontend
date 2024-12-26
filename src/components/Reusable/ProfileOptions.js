@@ -226,6 +226,7 @@ const ProfileOptions = ({ options }) => {
                   </button>
                 )}
               </div>
+
               {options.field2?.prevPassword && (
                 <div className={styles.forgotPasswordContainer}>
                   <button

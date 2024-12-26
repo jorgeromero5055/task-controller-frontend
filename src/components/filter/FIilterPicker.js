@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTaskContext } from '../../contexts/TaskContext';
 import { FaChevronRight, FaEye, FaEyeSlash } from 'react-icons/fa';
-import SortFilter from './sortByFilter';
+import SortFilter from './SortByFilter';
 import { LuArrowLeftRight, LuCalendar } from 'react-icons/lu';
 import { BsArrowCounterclockwise } from 'react-icons/bs';
 import DateFilter from './DateFilter';

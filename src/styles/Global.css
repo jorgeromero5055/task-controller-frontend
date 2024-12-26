@@ -4,3 +4,9 @@
   --text-font-family: Arial;
   --text-color: #555;
 }
+
+div,
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}

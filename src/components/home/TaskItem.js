@@ -10,7 +10,6 @@ import { IoEllipsisVertical } from 'react-icons/io5';
 import styles from '../../styles/TaskItem.module.css';
 import ErrorField from '../Reusable/ErrorField';
 import { prioritySelectionList } from '../../utils/Constants';
-// const options = ['none', 'Low', 'Medium', 'Top'];
 
 const TaskItem = ({ selectedItem, setSelectedItem, visibleSection }) => {
   const { editTask, deleteTask, windowSize } = useTaskContext();

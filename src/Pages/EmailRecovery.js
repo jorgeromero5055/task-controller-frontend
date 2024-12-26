@@ -37,19 +37,19 @@ const EmailRecovery = () => {
       }
     };
     handleRecovery();
-  }, [searchParams]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <AuthContainer>
       <AuthHeader
         options={{
           title: ' Email Recovery',
-          text: 'loading',
+          text: 'Loading ...',
           success: success,
           error: error,
         }}
       />
-
       <GoBackButton
         options={{
           text: 'Go to login',
