@@ -7,7 +7,7 @@ const Navbar = ({ setVisibleSection }) => {
     <div className={styles.navBar}>
       <div className={styles.logoContainer}>
         <img src={logo} alt="Logo" className={styles.logo} />
-        <p className={styles.logoText}>Task Controler</p>
+        <p className={styles.logoText}>Task Controller</p>
       </div>
       <div
         className={styles.icon}
